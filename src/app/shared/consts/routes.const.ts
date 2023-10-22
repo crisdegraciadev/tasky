@@ -1,5 +1,5 @@
 export const Routes = {
-  Dashboard: {
-    BASE: 'dashboard',
+  Tasks: {
+    BASE: 'tasks',
   },
 };

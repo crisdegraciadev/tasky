@@ -1,0 +1,81 @@
+<div data-testid="todo-board-container" class="container">
+  <div data-testid="backlog-column" class="column-container">
+    <h2>Backlog</h2>
+
+    <div
+      class="column-list"
+      cdkDropList
+      #backlogList="cdkDropList"
+      [cdkDropListData]="backlog"
+      [cdkDropListConnectedTo]="[todoList, doneList, doingList]"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-task-card
+        class="task-card"
+        [task]="task"
+        *ngFor="let task of backlog"
+        cdkDrag
+      />
+    </div>
+  </div>
+
+  <div data-testid="todo-column" class="column-container">
+    <h2>To Do</h2>
+
+    <div
+      class="column-list"
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[backlogList, doneList, doingList]"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-task-card
+        class="task-card"
+        [task]="task"
+        *ngFor="let task of todo"
+        cdkDrag
+      />
+    </div>
+  </div>
+
+  <div data-testid="doing-column" class="column-container">
+    <h2>Doing</h2>
+
+    <div
+      class="column-list"
+      cdkDropList
+      #doingList="cdkDropList"
+      [cdkDropListData]="doing"
+      [cdkDropListConnectedTo]="[backlogList, todoList, doneList]"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-task-card
+        class="task-card"
+        [task]="task"
+        *ngFor="let task of doing"
+        cdkDrag
+      />
+    </div>
+  </div>
+
+  <div data-testid="done-column" class="column-container">
+    <h2>Done</h2>
+
+    <div
+      class="column-list"
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[backlogList, doingList, todoList]"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-task-card
+        class="task-card"
+        [task]="task"
+        *ngFor="let task of done"
+        cdkDrag
+      />
+    </div>
+  </div>
+</div>

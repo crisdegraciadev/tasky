@@ -1,0 +1,38 @@
+.card-container {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background-color: white;
+  box-shadow:
+    rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+
+  .card-header {
+    margin-bottom: 0.75rem;
+
+    .card-title {
+      margin-bottom: 0.25rem;
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+
+    .card-description {
+      margin: 0;
+      font-weight: 400;
+      font-size: 1rem;
+      color: grey;
+      line-height: 1rem;
+    }
+  }
+
+  .card-body {
+    .card-body-tags {
+      display: flex;
+      gap: 0.25rem;
+
+      .tag {
+        border-radius: 0.25rem;
+        max-height: 1.5rem;
+      }
+    }
+  }
+}

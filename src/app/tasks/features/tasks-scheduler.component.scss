@@ -1,0 +1,9 @@
+.page-container {
+  height: calc(100% - 6rem);
+  margin: 1rem;
+
+  .todo-board {
+    height: calc(100% - 2rem);
+    margin: 1rem;
+  }
+}

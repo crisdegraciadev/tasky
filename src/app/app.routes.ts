@@ -3,10 +3,10 @@ import { Routes } from './shared/consts/routes.const';
 
 export const APP_ROUTES: Route[] = [
   {
-    path: Routes.Dashboard.BASE,
+    path: Routes.Tasks.BASE,
     loadChildren: () =>
-      import('./dashboard/features/dashboard.routes').then(
-        (mod) => mod.DASHBOARD_ROUTES,
+      import('./tasks/features/tasks-scheduler.routes').then(
+        (mod) => mod.TASKS_ROUTES,
       ),
   },
 ];
