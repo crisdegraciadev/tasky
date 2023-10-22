@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="header">
+    <h1 class="logo" data-testid="logo">Tasky</h1>
+
+    <div data-testid="profile" class="profile">
+      <ngx-avatars
+        data-testid="avatar"
+        class="avatar"
+        size="70"
+        name="Ana Calderon"
+      >
+      </ngx-avatars>
+      <span data-testid="name" class="name">Ana Calderón</span>
+    </div>
+
+    <button
+      data-testid="button-new-task"
+      class="new-task-button"
+      mat-raised-button
+      color="primary"
+    >
+      New Task
+    </button>
+  </div>
+
+  <div class="body">
+    <div data-testid="navigation-menu" class="navigation-menu">
+      <button
+        data-testid="navigation-dashboard-link"
+        class="navigation-button"
+        mat-button
+      >
+        <mat-icon data-testid="navigation-dashboard-link-icon">home</mat-icon>
+        Dashboard
+      </button>
+
+      <button
+        data-testid="navigation-tasks-link"
+        class="navigation-button"
+        mat-button
+      >
+        <mat-icon data-testid="navigation-tasks-link-icon">edit</mat-icon>
+        Tasks
+      </button>
+
+      <button
+        data-testid="navigation-reminders-link"
+        class="navigation-button"
+        mat-button
+      >
+        <mat-icon data-testid="navigation-reminders-link-icon">event</mat-icon>
+        Reminders
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div data-testid="footer-menu" class="footer-menu">
+      <button
+        data-testid="footer-settings-button"
+        class="footer-button"
+        mat-button
+      >
+        <mat-icon data-testid="footer-settings-button-icon">settings</mat-icon>
+        Settings
+      </button>
+
+      <button
+        data-testid="footer-logout-button"
+        class="footer-button"
+        mat-button
+      >
+        <mat-icon data-testid="footer-logout-button-icon">logout</mat-icon>
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
