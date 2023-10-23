@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { SidebarComponent } from './sidebar.component';
 import { By } from '@angular/platform-browser';
 
@@ -10,7 +11,7 @@ describe('SidebarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SidebarComponent, HttpClientTestingModule],
+      imports: [SidebarComponent, HttpClientTestingModule, RouterTestingModule],
     });
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
@@ -189,6 +190,20 @@ describe('SidebarComponent', () => {
 
       expect(icon).toBeTruthy();
       expect(icon.nativeElement!.textContent).toBe('logout');
+    });
+  });
+
+  describe('Class', () => {
+    it('should have an observable currentPath$ describing the current path', () => {
+      throw new Error('Not implemented');
+    });
+
+    it('should have a navigate() method to navigate to other pages', () => {
+      throw new Error('Not implemented');
+    });
+
+    it('should get new value from currentPath$ when navigating', () => {
+      throw new Error('Not implemented');
     });
   });
 });

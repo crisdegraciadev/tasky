@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutComponent } from './layout.component';
 
 describe('DashboardComponent', () => {
@@ -15,6 +16,7 @@ describe('DashboardComponent', () => {
         BrowserAnimationsModule,
         LayoutComponent,
         HttpClientTestingModule,
+        RouterTestingModule,
       ],
     }).compileComponents();
 
