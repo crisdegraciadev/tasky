@@ -7,7 +7,7 @@
       />
     </mat-sidenav>
     <mat-sidenav-content data-testid="content">
-      <app-navbar location="Tasks" />
+      <app-navbar [location]="currentLocation | titlecase" />
       <router-outlet />
     </mat-sidenav-content>
   </mat-sidenav-container>
