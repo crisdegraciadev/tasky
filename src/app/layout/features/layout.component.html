@@ -1,9 +1,16 @@
-<mat-sidenav-container data-testid="container">
-  <mat-sidenav class="sidebar" data-testid="sidenav" mode="side" opened>
-    <app-sidebar />
-  </mat-sidenav>
-  <mat-sidenav-content data-testid="content">
-    <app-navbar location="Tasks" />
-    <router-outlet />
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<ng-container *ngIf="currentLocation$ | async as currentLocation; else error">
+  <mat-sidenav-container data-testid="container">
+    <mat-sidenav class="sidebar" data-testid="sidenav" mode="side" opened>
+      <app-sidebar
+        [currentLocation]="currentLocation"
+        (locationSelected)="onLocationSelected($event)"
+      />
+    </mat-sidenav>
+    <mat-sidenav-content data-testid="content">
+      <app-navbar location="Tasks" />
+      <router-outlet />
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>
+
+<ng-template #error>Error</ng-template>

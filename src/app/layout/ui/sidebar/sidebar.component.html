@@ -28,8 +28,8 @@
       <button
         data-testid="navigation-dashboard-link"
         class="navigation-button"
-        [ngClass]="{ active: (currentPath$ | async) === Routes.DASHBOARD }"
-        (click)="navigate(Routes.DASHBOARD)"
+        [ngClass]="{ active: currentLocation === 'dashboard' }"
+        (click)="selectLocation('dashboard')"
         mat-button
       >
         <mat-icon data-testid="navigation-dashboard-link-icon">home</mat-icon>
@@ -39,8 +39,8 @@
       <button
         data-testid="navigation-tasks-link"
         class="navigation-button"
-        [ngClass]="{ active: (currentPath$ | async) === Routes.TASKS }"
-        (click)="navigate(Routes.TASKS)"
+        [ngClass]="{ active: currentLocation === 'tasks' }"
+        (click)="selectLocation('tasks')"
         mat-button
       >
         <mat-icon data-testid="navigation-tasks-link-icon">edit</mat-icon>
@@ -50,8 +50,8 @@
       <button
         data-testid="navigation-reminders-link"
         class="navigation-button"
-        [ngClass]="{ active: (currentPath$ | async) === Routes.REMINDERS }"
-        (click)="navigate(Routes.REMINDERS)"
+        [ngClass]="{ active: currentLocation === 'reminders' }"
+        (click)="selectLocation('reminders')"
         mat-button
       >
         <mat-icon data-testid="navigation-reminders-link-icon">event</mat-icon>

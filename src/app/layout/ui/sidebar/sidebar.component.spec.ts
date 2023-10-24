@@ -1,9 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+
+import { subscribeSpyTo } from '@hirez_io/observer-spy';
+import { provideRouter } from '@angular/router';
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { SidebarComponent } from './sidebar.component';
 import { By } from '@angular/platform-browser';
+import { TasksSchedulerComponent } from '../../../tasks/features/tasks-scheduler.component';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -11,18 +15,19 @@ describe('SidebarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SidebarComponent, HttpClientTestingModule, RouterTestingModule],
+      imports: [SidebarComponent, HttpClientTestingModule],
+      providers: [
+        provideRouter([{ path: 'tasks', component: TasksSchedulerComponent }]),
+      ],
+    }).overrideComponent(SidebarComponent, {
+      set: { changeDetection: ChangeDetectionStrategy.Default },
     });
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  describe('DOM', () => {
+  describe('template', () => {
     it('should have a logo with name "Tasky"', () => {
       const logo = fixture.debugElement.query(By.css('[data-testid=logo]'));
 
@@ -181,7 +186,7 @@ describe('SidebarComponent', () => {
       expect(logout.nativeElement.textContent).toMatch('Logout');
     });
 
-    it('should have a settings icon in settings link', () => {
+    it('should have a logout icon in logout link', () => {
       const icon = fixture.debugElement.query(
         By.css(
           '[data-testid=footer-menu] > [data-testid=footer-logout-button] > [data-testid=footer-logout-button-icon]',
@@ -191,19 +196,78 @@ describe('SidebarComponent', () => {
       expect(icon).toBeTruthy();
       expect(icon.nativeElement!.textContent).toBe('logout');
     });
+
+    it('should have active class when an element is clicked', fakeAsync(() => {
+      const tasksLink = fixture.debugElement.query(
+        By.css(
+          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
+        ),
+      );
+
+      const button: HTMLButtonElement = tasksLink.nativeElement!;
+
+      expect(button.classList).not.toContain('active');
+
+      tasksLink.triggerEventHandler('click');
+      fixture.detectChanges();
+
+      expect(button.classList).toContain('active');
+    }));
+
+    it("should have 'background-color: #f5f5f5' when an element is clicked", () => {
+      const tasksLink = fixture.debugElement.query(
+        By.css(
+          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
+        ),
+      );
+
+      const button: HTMLButtonElement = tasksLink.nativeElement!;
+
+      expect(
+        button.computedStyleMap().get('background-color')?.toString(),
+      ).toBe('rgba(0, 0, 0, 0)');
+
+      tasksLink.triggerEventHandler('click');
+      fixture.detectChanges();
+
+      expect(
+        button.computedStyleMap().get('background-color')?.toString(),
+      ).toBe('rgb(245, 245, 245)');
+    });
   });
 
-  describe('Class', () => {
-    it('should have an observable currentPath$ describing the current path', () => {
-      throw new Error('Not implemented');
-    });
+  describe('input: currentLocation', () => {
+    it('should add active class to the link with the matching location', () => {
+      component.currentLocation = 'tasks';
 
-    it('should have a navigate() method to navigate to other pages', () => {
-      throw new Error('Not implemented');
-    });
+      fixture.detectChanges();
 
-    it('should get new value from currentPath$ when navigating', () => {
-      throw new Error('Not implemented');
+      const tasksLink = fixture.debugElement.query(
+        By.css(
+          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
+        ),
+      );
+
+      const button: HTMLButtonElement = tasksLink.nativeElement!;
+
+      expect(button.classList).toContain('active');
+    });
+  });
+
+  describe('output: locationSelected', () => {
+    it("should emit 'tasks' as selected location when clicking the link", () => {
+      const observerSpy = subscribeSpyTo(component.locationSelected);
+
+      const tasksLink = fixture.debugElement.query(
+        By.css(
+          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
+        ),
+      );
+
+      tasksLink.triggerEventHandler('click');
+      fixture.detectChanges();
+
+      expect(observerSpy.getLastValue()).toBe('tasks');
     });
   });
 });

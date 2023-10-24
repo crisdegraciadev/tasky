@@ -1,13 +1,18 @@
-import { CommonModule, Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AvatarModule } from 'ngx-avatars';
-import { BehaviorSubject } from 'rxjs';
-import { Routes } from '../../../shared/consts/routes.const';
+import { AppRoute } from '../../../shared/types/routes';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,29 +28,15 @@ import { Routes } from '../../../shared/consts/routes.const';
   ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SidebarComponent implements OnInit {
-  readonly Routes = {
-    DASHBOARD: Routes.Dashboard.BASE,
-    TASKS: Routes.Tasks.BASE,
-    REMINDERS: Routes.Reminders.BASE,
-  };
+export class SidebarComponent {
+  @Input() currentLocation!: AppRoute;
 
-  private location$ = new BehaviorSubject<string>(Routes.Dashboard.BASE);
-  currentPath$ = this.location$.asObservable();
+  @Output() locationSelected = new EventEmitter<AppRoute>();
 
-  constructor(
-    private location: Location,
-    private router: Router,
-  ) {}
-
-  ngOnInit(): void {
-    const [_, ...currentLocation] = this.location.path();
-    this.location$.next(currentLocation.join(''));
-  }
-
-  navigate(route: string) {
-    this.location$.next(route);
-    this.router.navigateByUrl(route);
+  selectLocation(location: AppRoute) {
+    this.locationSelected.emit(location);
+    this.currentLocation = location;
   }
 }

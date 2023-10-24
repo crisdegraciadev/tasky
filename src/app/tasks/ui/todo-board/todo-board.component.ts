@@ -7,7 +7,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { Task } from '../../../shared/types/task.types';
+import { Task } from '../../../shared/types/task';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { MatDividerModule } from '@angular/material/divider';
 

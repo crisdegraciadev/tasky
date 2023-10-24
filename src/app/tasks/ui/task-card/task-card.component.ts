@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Task } from '../../../shared/types/task.types';
+import { Task } from '../../../shared/types/task';
 import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
