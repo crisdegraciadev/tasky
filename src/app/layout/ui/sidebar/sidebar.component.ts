@@ -6,6 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,6 +35,12 @@ export class SidebarComponent {
   @Input() currentLocation!: AppRoute;
 
   @Output() locationSelected = new EventEmitter<AppRoute>();
+
+  @Output() taskCreation = new EventEmitter();
+
+  createTask() {
+    this.taskCreation.emit();
+  }
 
   selectLocation(location: AppRoute) {
     this.locationSelected.emit(location);

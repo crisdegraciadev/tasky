@@ -4,6 +4,7 @@
       <app-sidebar
         [currentLocation]="currentLocation"
         (locationSelected)="onLocationSelected($event)"
+        (taskCreation)="onTaskCreation()"
       />
     </mat-sidenav>
     <mat-sidenav-content data-testid="content">

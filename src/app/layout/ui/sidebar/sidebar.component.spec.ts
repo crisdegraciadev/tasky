@@ -270,4 +270,19 @@ describe('SidebarComponent', () => {
       expect(observerSpy.getLastValue()).toBe('tasks');
     });
   });
+
+  describe('output: taskCreation', () => {
+    it('should emit an event to create a new task', () => {
+      const observerSpy = subscribeSpyTo(component.taskCreation);
+
+      const newTaskButton = fixture.debugElement.query(
+        By.css('[data-testid=button-new-task]'),
+      );
+
+      newTaskButton.triggerEventHandler('click');
+      fixture.detectChanges();
+
+      expect(observerSpy.receivedNext()).toBeTruthy();
+    });
+  });
 });

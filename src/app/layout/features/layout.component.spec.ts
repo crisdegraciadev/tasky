@@ -25,23 +25,18 @@ describe('DashboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it("should display a dialog to create a new task when the 'New Task' button is clicked", () => {
+    const openDialogSpy = spyOn(component.dialog, 'open');
 
-  describe('DOM', () => {
-    it('should have a sidebar element and a content element', () => {
-      const sidenav = fixture.debugElement.query(
-        By.css('[data-testid=sidenav]'),
-      );
+    const newTaskButton = fixture.debugElement.query(
+      By.css('[data-testid=button-new-task]'),
+    );
 
-      expect(sidenav).toBeTruthy();
+    expect(newTaskButton).toBeTruthy();
 
-      const content = fixture.debugElement.query(
-        By.css('[data-testid=content]'),
-      );
+    newTaskButton.triggerEventHandler('click');
+    fixture.detectChanges();
 
-      expect(content).toBeTruthy();
-    });
+    expect(openDialogSpy).toHaveBeenCalled();
   });
 });

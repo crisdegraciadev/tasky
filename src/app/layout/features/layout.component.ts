@@ -10,6 +10,10 @@ import { NavbarComponent } from '../ui/navbar/navbar.component';
 import { BehaviorSubject } from 'rxjs';
 import { Routes } from '../../shared/consts/routes.const';
 import { AppRoute } from '../../shared/types/routes';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { TaskCreateDialogComponent } from '../ui/task-create-dialog/task-create-dialog.component';
 
 @Component({
   selector: 'app-layout',
@@ -23,6 +27,9 @@ import { AppRoute } from '../../shared/types/routes';
     MatToolbarModule,
     NavbarComponent,
     SidebarComponent,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
   ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss'],
@@ -35,6 +42,7 @@ export class LayoutComponent implements OnInit {
   currentLocation$ = this._currentLocation$.asObservable();
 
   constructor(
+    public dialog: MatDialog,
     private location: Location,
     private router: Router,
   ) {}
@@ -63,5 +71,9 @@ export class LayoutComponent implements OnInit {
 
   onLocationSelected(route: AppRoute) {
     this.router.navigateByUrl(route);
+  }
+
+  onTaskCreation() {
+    this.dialog.open(TaskCreateDialogComponent);
   }
 }
