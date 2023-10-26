@@ -6,8 +6,8 @@ import { provideRouter } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SidebarComponent } from './sidebar.component';
 import { By } from '@angular/platform-browser';
-import { TasksSchedulerComponent } from '../../../tasks/features/tasks-scheduler.component';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { TasksSchedulerComponent } from '@tasks/features/tasks-scheduler.component';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -262,10 +262,9 @@ describe('SidebarComponent', () => {
         By.css(
           '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
         ),
-      );
+      ).nativeElement!;
 
-      tasksLink.triggerEventHandler('click');
-      fixture.detectChanges();
+      tasksLink.click();
 
       expect(observerSpy.getLastValue()).toBe('tasks');
     });
@@ -275,12 +274,11 @@ describe('SidebarComponent', () => {
     it('should emit an event to create a new task', () => {
       const observerSpy = subscribeSpyTo(component.taskCreation);
 
-      const newTaskButton = fixture.debugElement.query(
+      const newTaskButton: HTMLButtonElement = fixture.debugElement.query(
         By.css('[data-testid=button-new-task]'),
-      );
+      ).nativeElement!;
 
-      newTaskButton.triggerEventHandler('click');
-      fixture.detectChanges();
+      newTaskButton.click();
 
       expect(observerSpy.receivedNext()).toBeTruthy();
     });

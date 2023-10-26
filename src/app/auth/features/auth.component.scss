@@ -1,0 +1,16 @@
+@use "@angular/material" as mat;
+
+.auth-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  background-color: #fafafa;
+
+  .title {
+    font-size: 6rem;
+    font-weight: 600;
+    margin: 6rem 0;
+    color: mat.get-color-from-palette(mat.$red-palette, 700);
+  }
+}

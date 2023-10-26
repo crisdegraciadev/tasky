@@ -16,11 +16,7 @@ describe('TodoBoardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  describe('DOM', () => {
+  describe('template', () => {
     it('should display a board', () => {
       const board = fixture.debugElement.queryAll(
         By.css('[data-testid=todo-board-container]'),

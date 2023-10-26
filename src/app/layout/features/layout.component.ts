@@ -3,17 +3,17 @@ import { CommonModule, Location } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
-import { SidebarComponent } from '../ui/sidebar/sidebar.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NavbarComponent } from '../ui/navbar/navbar.component';
 import { BehaviorSubject } from 'rxjs';
-import { Routes } from '../../shared/consts/routes.const';
-import { AppRoute } from '../../shared/types/routes';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { TaskCreateDialogComponent } from '../ui/task-create-dialog/task-create-dialog.component';
+import { NavbarComponent } from '@layout/ui/navbar/navbar.component';
+import { SidebarComponent } from '@layout/ui/sidebar/sidebar.component';
+import { AppRoute } from '@shared/types/routes';
+import { Routes } from '@shared/consts/routes.const';
+import { TaskCreateDialogComponent } from '@layout/ui/task-create-dialog/task-create-dialog.component';
 
 @Component({
   selector: 'app-layout',
@@ -36,10 +36,8 @@ import { TaskCreateDialogComponent } from '../ui/task-create-dialog/task-create-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent implements OnInit {
-  private _currentLocation$ = new BehaviorSubject<AppRoute>(
-    Routes.Dashboard.BASE,
-  );
-  currentLocation$ = this._currentLocation$.asObservable();
+  #currentLocation$ = new BehaviorSubject<AppRoute>(Routes.TASKS);
+  currentLocation$ = this.#currentLocation$.asObservable();
 
   constructor(
     public dialog: MatDialog,
@@ -54,7 +52,7 @@ export class LayoutComponent implements OnInit {
   private setCurrentLocation() {
     const currentLocation = this.location.path().substring(1);
     if (this.isValidLocation(currentLocation)) {
-      this._currentLocation$.next(currentLocation);
+      this.#currentLocation$.next(currentLocation);
     }
   }
 

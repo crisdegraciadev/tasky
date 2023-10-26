@@ -1,0 +1,42 @@
+<mat-card class="login-form-card" data-testid="login-form-card">
+  <mat-card-content class="login-form-card-content">
+    <h2 data-testid="login-form-title">Login</h2>
+    <form
+      class="form"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+      autocomplete="off"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          data-testid="login-form-email-input"
+          formControlName="email"
+          type="email"
+          placeholder="ana@gmail.com"
+          matInput
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Pasword</mat-label>
+        <input
+          data-testid="login-form-password-input"
+          formControlName="password"
+          type="password"
+          placeholder="Your password"
+          matInput
+        />
+      </mat-form-field>
+
+      <button
+        data-testid="login-form-submit-button"
+        mat-raised-button
+        type="submit"
+        color="primary"
+      >
+        Login
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

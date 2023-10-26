@@ -34,8 +34,7 @@ describe('DashboardComponent', () => {
 
     expect(newTaskButton).toBeTruthy();
 
-    newTaskButton.triggerEventHandler('click');
-    fixture.detectChanges();
+    newTaskButton.nativeElement.click();
 
     expect(openDialogSpy).toHaveBeenCalled();
   });

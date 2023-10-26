@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Task } from '../../../shared/types/task';
 import { MatChipsModule } from '@angular/material/chips';
+import { Task } from '@shared/types/task';
 
 @Component({
   selector: 'app-task-card',

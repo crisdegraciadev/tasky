@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { TodoBoardComponent } from '../ui/todo-board/todo-board.component';
+import { TodoBoardComponent } from '@tasks/ui/todo-board/todo-board.component';
 
 @Component({
   selector: 'app-tasks-scheduler',

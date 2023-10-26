@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskCardComponent } from './task-card.component';
 import { By } from '@angular/platform-browser';
-import { Task } from '../../../shared/types/task';
+import { Task } from '@shared/types/task';
+import { TaskCardComponent } from './task-card.component';
 
 describe('TaskCardComponent', () => {
   let component: TaskCardComponent;

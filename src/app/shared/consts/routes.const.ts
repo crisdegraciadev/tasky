@@ -1,14 +1,5 @@
 export const Routes = {
-  Dashboard: {
-    BASE: 'dashboard',
-  },
-  Tasks: {
-    BASE: 'tasks',
-  },
-  Calendar: {
-    BASE: 'calendar',
-  },
-  Reminders: {
-    BASE: 'reminders',
-  },
+  AUTH: 'auth',
+  DASHBOARD: 'dashboard',
+  TASKS: 'tasks',
 } as const;
