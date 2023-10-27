@@ -1,4 +1,8 @@
-<mat-card class="login-form-card" data-testid="login-form-card">
+<mat-card
+  *ngIf="formErrors$ | async as errors"
+  class="login-form-card"
+  data-testid="login-form-card"
+>
   <mat-card-content class="login-form-card-content">
     <h2 data-testid="login-form-title">Login</h2>
     <form
@@ -7,7 +11,7 @@
       (ngSubmit)="onSubmit()"
       autocomplete="off"
     >
-      <mat-form-field appearance="outline">
+      <mat-form-field class="form-field" appearance="outline">
         <mat-label>Email</mat-label>
         <input
           data-testid="login-form-email-input"
@@ -15,10 +19,14 @@
           type="email"
           placeholder="ana@gmail.com"
           matInput
+          required
         />
+        <mat-error data-testid="login-form-email-error" *ngIf="errors.email">
+          Email field is required
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field class="form-field" appearance="outline">
         <mat-label>Pasword</mat-label>
         <input
           data-testid="login-form-password-input"
@@ -26,7 +34,15 @@
           type="password"
           placeholder="Your password"
           matInput
+          required
         />
+
+        <mat-error
+          data-testid="login-form-password-error"
+          *ngIf="errors.password"
+        >
+          Password field is required
+        </mat-error>
       </mat-form-field>
 
       <button

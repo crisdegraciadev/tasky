@@ -16,11 +16,7 @@ describe('TasksSchedulerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  describe('DOM', () => {
+  describe('template', () => {
     it('should have a card container element', () => {
       const container = fixture.debugElement.query(
         By.css('[data-testid=tasks-scheduler-container]'),

@@ -27,11 +27,7 @@ describe('TaskCardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  describe('DOM', () => {
+  describe('template', () => {
     it('should display a card', () => {
       const card = fixture.debugElement.query(
         By.css('[data-testid=card-container]'),
@@ -61,7 +57,7 @@ describe('TaskCardComponent', () => {
     });
   });
 
-  describe('Input: item', () => {
+  describe('input: item', () => {
     it('should display "Create an essay" as title', () => {
       const title = fixture.debugElement.query(
         By.css(

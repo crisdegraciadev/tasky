@@ -81,8 +81,9 @@ describe('LoginFormComponent', () => {
   });
 
   describe('output: formSubmit', () => {
+    const FORM_DATA = { email: 'ana@gmail.com', password: '1234' };
+
     it('should submit form data when inputs are filled', () => {
-      const FORM_DATA = { email: 'ana@gmail.com', password: '1234' };
       const observerSpy = subscribeSpyTo(component.formSubmit);
 
       const emailInput: HTMLInputElement = fixture.debugElement.query(
@@ -109,12 +110,94 @@ describe('LoginFormComponent', () => {
       expect(observerSpy.getLastValue()).toEqual(FORM_DATA);
     });
 
-    it('should NOT submit form data when email input is not filled');
+    it('should NOT submit form data when email input is not filled', () => {
+      const observerSpy = subscribeSpyTo(component.formSubmit);
 
-    it('should show error message when email input is not filled');
+      const passwordInput: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=login-form-password-input]'),
+      ).nativeElement!;
 
-    it('should NOT submit form data when password input is not filled');
+      passwordInput.value = FORM_DATA.password;
+      passwordInput.dispatchEvent(new Event('input'));
 
-    it('should show error message when password input is not filled');
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(
+        By.css('[data-testid=login-form-submit-button]'),
+      ).nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      expect(observerSpy.getLastValue()).toBeUndefined();
+    });
+
+    it('should show error message when email input is not filled', () => {
+      const passwordInput: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=login-form-password-input]'),
+      ).nativeElement!;
+
+      passwordInput.value = FORM_DATA.password;
+      passwordInput.dispatchEvent(new Event('input'));
+
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(
+        By.css('[data-testid=login-form-submit-button]'),
+      ).nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      const failHint = fixture.debugElement.query(
+        By.css('[data-testid=login-form-email-error]'),
+      );
+
+      expect(failHint).toBeTruthy();
+      expect(failHint.nativeElement.textContent).toMatch(
+        'Email field is required',
+      );
+    });
+
+    it('should NOT submit form data when password input is not filled', () => {
+      const observerSpy = subscribeSpyTo(component.formSubmit);
+
+      const emailInput: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=login-form-email-input]'),
+      ).nativeElement!;
+
+      emailInput.value = FORM_DATA.email;
+      emailInput.dispatchEvent(new Event('input'));
+
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(
+        By.css('[data-testid=login-form-submit-button]'),
+      ).nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      expect(observerSpy.getLastValue()).toBeUndefined();
+    });
+
+    it('should show error message when password input is not filled', () => {
+      const emailInput: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=login-form-email-input]'),
+      ).nativeElement!;
+
+      emailInput.value = FORM_DATA.email;
+      emailInput.dispatchEvent(new Event('input'));
+
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(
+        By.css('[data-testid=login-form-submit-button]'),
+      ).nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      const failHint = fixture.debugElement.query(
+        By.css('[data-testid=login-form-password-error]'),
+      );
+
+      expect(failHint).toBeTruthy();
+      expect(failHint.nativeElement.textContent).toMatch(
+        'Password field is required',
+      );
+    });
   });
 });

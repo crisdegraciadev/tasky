@@ -43,17 +43,12 @@ export class LoginFormComponent {
 
   onSubmit() {
     const { email, password } = this.loginForm.value;
-    const currentErrors = this.#formErrors$.getValue();
 
-    if (!email) {
-      return this.#formErrors$.next({ ...currentErrors, email: true });
+    this.#formErrors$.next({ email: !email, password: !password });
+
+    if (email && password) {
+      this.#formErrors$.next({ email: false, password: false });
+      this.formSubmit.emit({ email, password });
     }
-
-    if (!password) {
-      return this.#formErrors$.next({ ...currentErrors, password: true });
-    }
-
-    this.#formErrors$.next({ email: false, password: false });
-    this.formSubmit.emit({ email, password });
   }
 }
