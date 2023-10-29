@@ -38,6 +38,8 @@ export class SidebarComponent {
 
   @Output() taskCreation = new EventEmitter();
 
+  @Output() logoutClick = new EventEmitter();
+
   createTask() {
     this.taskCreation.emit();
   }
@@ -45,5 +47,9 @@ export class SidebarComponent {
   selectLocation(location: AppRoute) {
     this.locationSelected.emit(location);
     this.currentLocation = location;
+  }
+
+  handleLogout() {
+    this.logoutClick.emit();
   }
 }

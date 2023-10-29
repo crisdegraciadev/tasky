@@ -1,6 +1,12 @@
 export const environment = {
   production: false,
-  supabaseUrl: 'https://vjyxhzrlbnhkfznmfzne.supabase.co',
-  supabaseKey:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqeXhoenJsYm5oa2Z6bm1mem5lIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTgzNDMxNjIsImV4cCI6MjAxMzkxOTE2Mn0.SvansiglMgcfcs9sdrQS4kY2q2EIym39gwGDs7nK64E',
+  useEmulators: true,
+  firebase: {
+    projectId: 'demo-project',
+    appId: '1:759585836194:web:8159cd3b07e605ad625bfb',
+    storageBucket: 'tasky-task-manager.appspot.com',
+    apiKey: 'AIzaSyCyHOy65KKDZWVCW0gguEKMT22brWButmM',
+    authDomain: 'tasky-task-manager.firebaseapp.com',
+    messagingSenderId: '759585836194',
+  },
 };

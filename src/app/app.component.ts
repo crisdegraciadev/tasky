@@ -1,15 +1,30 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { LayoutComponent } from './layout/features/layout.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '@shared/data-access/auth.service';
+import { Routes } from '@shared/consts/routes.const';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, LayoutComponent],
+  imports: [CommonModule, RouterModule, LayoutComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'tasky';
+  authService: AuthService = inject(AuthService);
+  private router: Router = inject(Router);
+
+  isLoggedIn = false;
+
+  constructor() {
+    effect(() => {
+      if (!this.authService.user()) {
+        this.router.navigateByUrl(Routes.AUTH);
+      }
+
+      this.isLoggedIn = !!this.authService.user();
+    });
+  }
 }

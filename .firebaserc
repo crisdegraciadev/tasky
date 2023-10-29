@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "tasky-task-manager": {
+      "hosting": {
+        "tasky": [
+          "tasky-task-manager"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "tasky-task-manager"
+  }
+}

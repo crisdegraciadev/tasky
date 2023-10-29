@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,6 +19,7 @@ import { SidebarComponent } from '@layout/ui/sidebar/sidebar.component';
 import { AppRoute } from '@shared/types/routes';
 import { Routes } from '@shared/consts/routes.const';
 import { TaskCreateDialogComponent } from '@layout/ui/task-create-dialog/task-create-dialog.component';
+import { AuthService } from '@shared/data-access/auth.service';
 
 @Component({
   selector: 'app-layout',
@@ -36,14 +42,14 @@ import { TaskCreateDialogComponent } from '@layout/ui/task-create-dialog/task-cr
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent implements OnInit {
-  #currentLocation$ = new BehaviorSubject<AppRoute>(Routes.TASKS);
-  currentLocation$ = this.#currentLocation$.asObservable();
+  authService = inject(AuthService);
 
-  constructor(
-    public dialog: MatDialog,
-    private location: Location,
-    private router: Router,
-  ) {}
+  dialog = inject(MatDialog);
+
+  private location = inject(Location);
+  private router = inject(Router);
+
+  currentLocation$ = new BehaviorSubject<AppRoute>(Routes.TASKS);
 
   ngOnInit(): void {
     this.setCurrentLocation();
@@ -52,7 +58,7 @@ export class LayoutComponent implements OnInit {
   private setCurrentLocation() {
     const currentLocation = this.location.path().substring(1);
     if (this.isValidLocation(currentLocation)) {
-      this.#currentLocation$.next(currentLocation);
+      this.currentLocation$.next(currentLocation);
     }
   }
 
@@ -73,5 +79,9 @@ export class LayoutComponent implements OnInit {
 
   onTaskCreation() {
     this.dialog.open(TaskCreateDialogComponent);
+  }
+
+  onLogoutClick() {
+    this.authService.logout();
   }
 }
