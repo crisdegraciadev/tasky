@@ -11,11 +11,13 @@ import { Router } from '@angular/router';
 import { Routes } from '@shared/consts/routes.const';
 import { Credentials } from '@shared/types/auth';
 import { LoginService } from '../data-access/login.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [CommonModule, LoginFormComponent],
+  imports: [CommonModule, LoginFormComponent, MatSnackBarModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,6 +25,9 @@ import { LoginService } from '../data-access/login.service';
 export class AuthComponent {
   authService: AuthService = inject(AuthService);
   loginService: LoginService = inject(LoginService);
+
+  private snackbar = inject(MatSnackBar);
+
   private router = inject(Router);
 
   constructor() {
@@ -31,9 +36,16 @@ export class AuthComponent {
         this.router.navigateByUrl(Routes.TASKS);
       }
     });
+
+    effect(() => {
+      if (this.loginService.status() === 'error') {
+        this.snackbar.open('Invalid credentials', 'Close');
+      }
+    });
   }
 
   onFormSubmit(credentials: Credentials) {
+    console.log({ credentials });
     this.loginService.login$.next(credentials);
   }
 }

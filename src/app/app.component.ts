@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, OnInit, effect, inject } from '@angular/core';
 import { LayoutComponent } from './layout/features/layout.component';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';

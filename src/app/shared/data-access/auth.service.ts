@@ -7,7 +7,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { authState } from 'rxfire/auth';
-import { defer, from, tap } from 'rxjs';
+import { defer, from } from 'rxjs';
 import { AUTH } from 'src/app/app.config';
 
 @Injectable({
