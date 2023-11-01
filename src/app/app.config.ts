@@ -9,7 +9,7 @@ import {
   connectFirestoreEmulator,
   getFirestore,
   initializeFirestore,
-} from '@angular/fire/firestore';
+} from 'firebase/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { environment } from '@env/environment';

@@ -1,8 +1,8 @@
 export const environment = {
-  production: false,
-  useEmulators: true,
+  production: true,
+  useEmulators: false,
   firebase: {
-    projectId: 'demo-project',
+    projectId: 'tasky-task-manager',
     appId: '1:759585836194:web:8159cd3b07e605ad625bfb',
     storageBucket: 'tasky-task-manager.appspot.com',
     apiKey: 'AIzaSyCyHOy65KKDZWVCW0gguEKMT22brWButmM',

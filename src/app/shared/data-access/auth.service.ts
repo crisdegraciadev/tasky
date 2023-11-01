@@ -28,6 +28,7 @@ export class AuthService {
   user = computed(() => this.state().user);
 
   constructor() {
+    // redeucers
     this.user$.pipe(takeUntilDestroyed()).subscribe((user) =>
       this.state.update((state) => ({
         ...state,
