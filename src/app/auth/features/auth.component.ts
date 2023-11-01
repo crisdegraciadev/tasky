@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 import { Routes } from '@shared/consts/routes.const';
 import { Credentials } from '@shared/types/auth';
 import { LoginService } from '../data-access/login.service';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
@@ -45,7 +44,6 @@ export class AuthComponent {
   }
 
   onFormSubmit(credentials: Credentials) {
-    console.log({ credentials });
     this.loginService.login$.next(credentials);
   }
 }

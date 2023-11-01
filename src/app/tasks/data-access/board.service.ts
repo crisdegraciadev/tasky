@@ -5,7 +5,7 @@ import { User } from '@shared/types/user';
 import { BoardState, Board } from '@tasks/utils/types';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
-import { Observable, Subject, defer, map, switchMap, tap } from 'rxjs';
+import { Observable, Subject, defer, map, switchMap } from 'rxjs';
 import { FIRESTORE } from 'src/app/app.config';
 
 @Injectable({
@@ -37,18 +37,13 @@ export class BoardService {
 
   constructor() {
     // reducers
-    this.board$
-      .pipe(
-        takeUntilDestroyed(),
-        tap((res) => console.log({ res })),
-      )
-      .subscribe((board) =>
-        this.state.update((state) => ({
-          ...state,
-          board,
-          loaded: true,
-        })),
-      );
+    this.board$.pipe(takeUntilDestroyed()).subscribe((board) =>
+      this.state.update((state) => ({
+        ...state,
+        board,
+        loaded: true,
+      })),
+    );
 
     this.update$
       .pipe(
@@ -64,7 +59,6 @@ export class BoardService {
   }
 
   private getBoard(): Observable<Board> {
-    console.log('Getting board');
     const userDoc$ = defer(() =>
       getDoc(doc(this.firestore, 'users', this.authService.user()!.uid)),
     );
