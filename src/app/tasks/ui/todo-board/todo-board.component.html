@@ -6,14 +6,14 @@
       class="column-list"
       cdkDropList
       #backlogList="cdkDropList"
-      [cdkDropListData]="backlog"
+      [cdkDropListData]="board.backlog"
       [cdkDropListConnectedTo]="[todoList, doneList, doingList]"
       (cdkDropListDropped)="drop($event)"
     >
       <app-task-card
         class="task-card"
         [task]="task"
-        *ngFor="let task of backlog"
+        *ngFor="let task of board.backlog"
         cdkDrag
       />
     </div>
@@ -26,14 +26,14 @@
       class="column-list"
       cdkDropList
       #todoList="cdkDropList"
-      [cdkDropListData]="todo"
+      [cdkDropListData]="board.todo"
       [cdkDropListConnectedTo]="[backlogList, doneList, doingList]"
       (cdkDropListDropped)="drop($event)"
     >
       <app-task-card
         class="task-card"
         [task]="task"
-        *ngFor="let task of todo"
+        *ngFor="let task of board.todo"
         cdkDrag
       />
     </div>
@@ -46,14 +46,14 @@
       class="column-list"
       cdkDropList
       #doingList="cdkDropList"
-      [cdkDropListData]="doing"
+      [cdkDropListData]="board.doing"
       [cdkDropListConnectedTo]="[backlogList, todoList, doneList]"
       (cdkDropListDropped)="drop($event)"
     >
       <app-task-card
         class="task-card"
         [task]="task"
-        *ngFor="let task of doing"
+        *ngFor="let task of board.doing"
         cdkDrag
       />
     </div>
@@ -66,14 +66,14 @@
       class="column-list"
       cdkDropList
       #doneList="cdkDropList"
-      [cdkDropListData]="done"
+      [cdkDropListData]="board.done"
       [cdkDropListConnectedTo]="[backlogList, doingList, todoList]"
       (cdkDropListDropped)="drop($event)"
     >
       <app-task-card
         class="task-card"
         [task]="task"
-        *ngFor="let task of done"
+        *ngFor="let task of board.done"
         cdkDrag
       />
     </div>

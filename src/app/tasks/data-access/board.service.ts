@@ -1,12 +1,11 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '@shared/data-access/auth.service';
-import { Task } from '@shared/types/task';
 import { User } from '@shared/types/user';
-import { BoardState, BoardUpdate, TaskListType } from '@tasks/utils/types';
+import { BoardState, Board } from '@tasks/utils/types';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
-import { Observable, Subject, defer, forkJoin, map, switchMap } from 'rxjs';
+import { Observable, Subject, defer, map, switchMap, tap } from 'rxjs';
 import { FIRESTORE } from 'src/app/app.config';
 
 @Injectable({
@@ -17,80 +16,39 @@ export class BoardService {
   private authService = inject(AuthService);
 
   // sources
-  backlog$ = this.getTasks('backlog');
-  todo$ = this.getTasks('todo');
-  doing$ = this.getTasks('doing');
-  done$ = this.getTasks('done');
+  board$ = this.getBoard();
 
-  update$ = new Subject<BoardUpdate>();
+  update$ = new Subject<Board>();
 
   // state
   private state = signal<BoardState>({
-    backlog: {
-      tasks: [],
-      loaded: false,
+    board: {
+      backlog: [],
+      todo: [],
+      doing: [],
+      done: [],
     },
-    todo: {
-      tasks: [],
-      loaded: false,
-    },
-    doing: {
-      tasks: [],
-      loaded: false,
-    },
-    done: {
-      tasks: [],
-      loaded: false,
-    },
+    loaded: false,
   });
 
   // selectors
-  backlog = computed(() => this.state().backlog);
-  todo = computed(() => this.state().todo);
-  doing = computed(() => this.state().doing);
-  done = computed(() => this.state().done);
+  board = computed(() => this.state().board);
+  loaded = computed(() => this.state().loaded);
 
   constructor() {
     // reducers
-    this.backlog$.pipe(takeUntilDestroyed()).subscribe((tasks) =>
-      this.state.update((state) => ({
-        ...state,
-        backlog: {
-          tasks,
+    this.board$
+      .pipe(
+        takeUntilDestroyed(),
+        tap((res) => console.log({ res })),
+      )
+      .subscribe((board) =>
+        this.state.update((state) => ({
+          ...state,
+          board,
           loaded: true,
-        },
-      })),
-    );
-
-    this.todo$.pipe(takeUntilDestroyed()).subscribe((tasks) =>
-      this.state.update((state) => ({
-        ...state,
-        todo: {
-          tasks,
-          loaded: true,
-        },
-      })),
-    );
-
-    this.doing$.pipe(takeUntilDestroyed()).subscribe((tasks) =>
-      this.state.update((state) => ({
-        ...state,
-        doing: {
-          tasks,
-          loaded: true,
-        },
-      })),
-    );
-
-    this.done$.pipe(takeUntilDestroyed()).subscribe((tasks) =>
-      this.state.update((state) => ({
-        ...state,
-        done: {
-          tasks,
-          loaded: true,
-        },
-      })),
-    );
+        })),
+      );
 
     this.update$
       .pipe(
@@ -105,47 +63,26 @@ export class BoardService {
       );
   }
 
-  private getTasks(listType: TaskListType): Observable<Task[]> {
-    const docs$ = defer(() =>
+  private getBoard(): Observable<Board> {
+    console.log('Getting board');
+    const userDoc$ = defer(() =>
       getDoc(doc(this.firestore, 'users', this.authService.user()!.uid)),
     );
 
-    return docs$.pipe(map((doc) => (doc.data() as User)[listType]));
+    return userDoc$.pipe(
+      map((doc) => {
+        const user = doc.data() as User;
+        const { backlog, todo, doing, done } = user;
+        return { backlog, todo, doing, done };
+      }),
+    );
   }
 
-  private updateBoard(newBoard: BoardUpdate) {
+  private updateBoard(newBoard: Board) {
     return defer(() =>
       updateDoc(doc(this.firestore, 'users', this.authService.user()!.uid), {
         ...newBoard,
       }),
-    ).pipe(
-      switchMap(() => {
-        const backlog$ = this.getTasks('backlog');
-        const todo$ = this.getTasks('todo');
-        const doing$ = this.getTasks('doing');
-        const done$ = this.getTasks('done');
-
-        return forkJoin([backlog$, todo$, doing$, done$]).pipe(
-          map(([backlogTasks, todoTasks, doingTasks, doneTasks]) => ({
-            backlog: {
-              tasks: backlogTasks,
-              loaded: true,
-            },
-            todo: {
-              tasks: todoTasks,
-              loaded: true,
-            },
-            doing: {
-              tasks: doingTasks,
-              loaded: true,
-            },
-            done: {
-              tasks: doneTasks,
-              loaded: true,
-            },
-          })),
-        );
-      }),
-    );
+    ).pipe(switchMap(() => this.getBoard()));
   }
 }

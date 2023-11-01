@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { TodoBoardComponent } from '@tasks/ui/todo-board/todo-board.component';
 import { BoardService } from '@tasks/data-access/board.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BoardUpdate } from '@tasks/utils/types';
+import { Board } from '@tasks/utils/types';
 import { Task } from '@shared/types/task';
 
 @Component({
@@ -28,7 +28,7 @@ export class TasksSchedulerComponent {
 
   constructor() {}
 
-  updateBoard(newBoard: BoardUpdate) {
+  updateBoard(newBoard: Board) {
     this.boardService.update$.next(newBoard);
   }
 }

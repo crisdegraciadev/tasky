@@ -17,7 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { Task } from '@shared/types/task';
 import { TODO_DATA } from './todo-board.data';
-import { BoardUpdate } from '@tasks/utils/types';
+import { Board } from '@tasks/utils/types';
 
 @Component({
   selector: 'app-todo-board',
@@ -34,12 +34,9 @@ import { BoardUpdate } from '@tasks/utils/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TodoBoardComponent {
-  @Input({ required: true }) backlog: Task[] = [];
-  @Input() todo: Task[] = TODO_DATA;
-  @Input() doing: Task[] = [];
-  @Input() done: Task[] = [];
+  @Input() board!: Board;
 
-  @Output() boardUpdate = new EventEmitter<BoardUpdate>();
+  @Output() boardUpdate = new EventEmitter<Board>();
 
   drop(event: CdkDragDrop<Task[]>) {
     const movementInSameList = event.previousContainer === event.container;
@@ -49,10 +46,7 @@ export class TodoBoardComponent {
       : this.moveToOtherList(event);
 
     this.boardUpdate.emit({
-      backlog: this.backlog,
-      todo: this.todo,
-      doing: this.doing,
-      done: this.done,
+      ...this.board,
     });
   }
 
