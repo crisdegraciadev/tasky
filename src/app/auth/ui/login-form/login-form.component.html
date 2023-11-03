@@ -11,7 +11,10 @@
       (ngSubmit)="onSubmit()"
       autocomplete="off"
     >
-      <mat-form-field class="form-field" appearance="outline">
+      <mat-form-field
+        class="form-field"
+        appearance="outline"
+      >
         <mat-label>Email</mat-label>
         <input
           data-testid="login-form-email-input"
@@ -21,12 +24,18 @@
           matInput
           required
         />
-        <mat-error data-testid="login-form-email-error" *ngIf="errors.email">
+        <mat-error
+          data-testid="login-form-email-error"
+          *ngIf="errors.email"
+        >
           Email field is required
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="form-field" appearance="outline">
+      <mat-form-field
+        class="form-field"
+        appearance="outline"
+      >
         <mat-label>Pasword</mat-label>
         <input
           data-testid="login-form-password-input"

@@ -9,35 +9,37 @@ describe('TodoBoardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TodoBoardComponent],
+      imports: [TodoBoardComponent]
     });
     fixture = TestBed.createComponent(TodoBoardComponent);
     component = fixture.componentInstance;
+
+    component.board = {
+      backlog: [],
+      todo: [],
+      doing: [],
+      done: []
+    };
+
     fixture.detectChanges();
   });
 
   describe('template', () => {
     it('should display a board', () => {
-      const board = fixture.debugElement.queryAll(
-        By.css('[data-testid=todo-board-container]'),
-      );
+      const board = fixture.debugElement.queryAll(By.css('[data-testid=todo-board-container]'));
 
       expect(board).toBeTruthy();
     });
 
     it('should have 4 columns', () => {
-      const columns = fixture.debugElement.queryAll(
-        By.css('[data-testid=todo-board-container] > .column-container'),
-      );
+      const columns = fixture.debugElement.queryAll(By.css('[data-testid=todo-board-container] > .column-container'));
 
       expect(columns.length).toBe(4);
     });
 
     it('should have a backlog column', () => {
       const column = fixture.debugElement.query(
-        By.css(
-          '[data-testid=todo-board-container] > [data-testid=backlog-column]',
-        ),
+        By.css('[data-testid=todo-board-container] > [data-testid=backlog-column]')
       );
 
       expect(column).toBeTruthy();
@@ -49,9 +51,7 @@ describe('TodoBoardComponent', () => {
 
     it('should have a todo column', () => {
       const column = fixture.debugElement.query(
-        By.css(
-          '[data-testid=todo-board-container] > [data-testid=todo-column]',
-        ),
+        By.css('[data-testid=todo-board-container] > [data-testid=todo-column]')
       );
 
       expect(column).toBeTruthy();
@@ -63,9 +63,7 @@ describe('TodoBoardComponent', () => {
 
     it('should have a doing column', () => {
       const column = fixture.debugElement.query(
-        By.css(
-          '[data-testid=todo-board-container] > [data-testid=doing-column]',
-        ),
+        By.css('[data-testid=todo-board-container] > [data-testid=doing-column]')
       );
 
       expect(column).toBeTruthy();
@@ -77,9 +75,7 @@ describe('TodoBoardComponent', () => {
 
     it('should have a done column', () => {
       const column = fixture.debugElement.query(
-        By.css(
-          '[data-testid=todo-board-container] > [data-testid=done-column]',
-        ),
+        By.css('[data-testid=todo-board-container] > [data-testid=done-column]')
       );
 
       expect(column).toBeTruthy();

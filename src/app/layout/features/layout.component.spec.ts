@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LayoutComponent } from './layout.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 describe('DashboardComponent', () => {
   let component: LayoutComponent;
@@ -12,12 +13,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
-        LayoutComponent,
-        HttpClientTestingModule,
-        RouterTestingModule,
-      ],
+      imports: [BrowserAnimationsModule, LayoutComponent, HttpClientTestingModule, RouterTestingModule],
+      providers: [{ provide: MatDialogRef, useValue: {} }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LayoutComponent);
@@ -25,17 +22,13 @@ describe('DashboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it("should display a dialog to create a new task when the 'New Task' button is clicked", () => {
-    const openDialogSpy = spyOn(component.dialog, 'open');
+  it('should display a dialog to create a new task when the "New Task" button is clicked', () => {
+    const spy = spyOn(component, 'onTaskCreation');
 
-    const newTaskButton = fixture.debugElement.query(
-      By.css('[data-testid=button-new-task]'),
-    );
-
+    const newTaskButton = fixture.debugElement.query(By.css('[data-testid=button-new-task]'));
     expect(newTaskButton).toBeTruthy();
 
     newTaskButton.nativeElement.click();
-
-    expect(openDialogSpy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 });

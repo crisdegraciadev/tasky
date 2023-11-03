@@ -12,13 +12,12 @@ describe('TaskCardComponent', () => {
     title: 'Create an essay',
     description: '',
     tags: [{ value: 'English', color: '#D32F2F' }],
-    creationDate: new Date(),
-    expirationDate: new Date(),
+    startDate: new Date()
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TaskCardComponent],
+      imports: [TaskCardComponent]
     });
     fixture = TestBed.createComponent(TaskCardComponent);
     component = fixture.componentInstance;
@@ -29,18 +28,14 @@ describe('TaskCardComponent', () => {
 
   describe('template', () => {
     it('should display a card', () => {
-      const card = fixture.debugElement.query(
-        By.css('[data-testid=card-container]'),
-      );
+      const card = fixture.debugElement.query(By.css('[data-testid=card-container]'));
 
       expect(card).toBeTruthy();
     });
 
     it('should display a title', () => {
       const title = fixture.debugElement.query(
-        By.css(
-          '[data-testid=card-container] > [data-testid=card-header]  [data-testid=card-header-title]',
-        ),
+        By.css('[data-testid=card-container] > [data-testid=card-header]  [data-testid=card-header-title]')
       );
 
       expect(title).toBeTruthy();
@@ -48,9 +43,7 @@ describe('TaskCardComponent', () => {
 
     it('should display a description', () => {
       const description = fixture.debugElement.query(
-        By.css(
-          '[data-testid=card-container] > [data-testid=card-header]  [data-testid=card-header-description]',
-        ),
+        By.css('[data-testid=card-container] > [data-testid=card-header]  [data-testid=card-header-description]')
       );
 
       expect(description).toBeTruthy();
@@ -60,9 +53,7 @@ describe('TaskCardComponent', () => {
   describe('input: item', () => {
     it('should display "Create an essay" as title', () => {
       const title = fixture.debugElement.query(
-        By.css(
-          '[data-testid=card-container] > [data-testid=card-header]  [data-testid=card-header-title]',
-        ),
+        By.css('[data-testid=card-container] > [data-testid=card-header]  [data-testid=card-header-title]')
       ).nativeElement!;
 
       expect(title.textContent).toMatch(MOCKECD_TASK.title);

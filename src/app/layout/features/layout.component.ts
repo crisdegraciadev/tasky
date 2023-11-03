@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,8 +13,8 @@ import { NavbarComponent } from '@layout/ui/navbar/navbar.component';
 import { SidebarComponent } from '@layout/ui/sidebar/sidebar.component';
 import { AppRoute } from '@shared/types/routes';
 import { Routes } from '@shared/consts/routes.const';
-import { TaskCreateDialogComponent } from '@layout/ui/task-create-dialog/task-create-dialog.component';
 import { AuthService } from '@shared/data-access/auth.service';
+import { TaskCreateDialogComponent } from '@shared/ui/task-create-dialog/task-create-dialog.component';
 
 @Component({
   selector: 'app-layout',
@@ -35,11 +30,10 @@ import { AuthService } from '@shared/data-access/auth.service';
     SidebarComponent,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule,
+    MatDialogModule
   ],
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
   authService = inject(AuthService);
@@ -63,12 +57,7 @@ export class LayoutComponent implements OnInit {
   }
 
   private isValidLocation(location: string): location is AppRoute {
-    const validRoutes = new Set([
-      'dashboard',
-      'tasks',
-      'reminders',
-      'settings',
-    ]);
+    const validRoutes = new Set(['dashboard', 'tasks', 'reminders', 'settings']);
 
     return validRoutes.has(location);
   }
@@ -78,7 +67,16 @@ export class LayoutComponent implements OnInit {
   }
 
   onTaskCreation() {
-    this.dialog.open(TaskCreateDialogComponent);
+    const dialog = this.dialog.open(TaskCreateDialogComponent, {
+      data: {
+        tags: [
+          { value: 'Ingles', color: '#D32F2F' },
+          { value: 'Lengua', color: '#D32F2F' }
+        ]
+      }
+    });
+
+    dialog.componentInstance.formSubmit.subscribe((result) => console.log({ result }));
   }
 
   onLogoutClick() {

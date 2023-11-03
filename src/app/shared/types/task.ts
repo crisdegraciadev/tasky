@@ -2,8 +2,8 @@ export type Task = {
   title: string;
   description: string;
   tags: Tag[];
-  creationDate: Date;
-  expirationDate: Date;
+  startDate: Date;
+  endDate?: Date;
 };
 
 export type Tag = {

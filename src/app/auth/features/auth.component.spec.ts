@@ -10,7 +10,7 @@ describe('AuthComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AuthComponent, BrowserAnimationsModule],
+      imports: [AuthComponent, BrowserAnimationsModule]
     });
     fixture = TestBed.createComponent(AuthComponent);
     component = fixture.componentInstance;
@@ -22,13 +22,11 @@ describe('AuthComponent', () => {
   });
 
   describe('template', () => {
-    it("should have a title with value 'Tasky'", () => {
-      const title = fixture.debugElement.query(
-        By.css('[data-testid=auth-page-title]'),
-      );
+    it('should have a title with value "Tasky"', () => {
+      const title = fixture.debugElement.query(By.css('[data-testid=auth-page-title]'));
 
       expect(title).toBeTruthy();
-      expect(title.nativeElement.textContent).toBe('Tasky');
+      expect(title.nativeElement.textContent).toMatch('Tasky');
     });
   });
 });

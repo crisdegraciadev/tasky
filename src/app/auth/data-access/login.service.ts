@@ -6,7 +6,7 @@ import { EMPTY, Subject, catchError, switchMap } from 'rxjs';
 import { LoginState } from '../utils/types';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class LoginService {
   authService = inject(AuthService);
@@ -21,14 +21,14 @@ export class LoginService {
         catchError((err) => {
           this.error$.next(err);
           return EMPTY;
-        }),
-      ),
-    ),
+        })
+      )
+    )
   );
 
   // state
   private state = signal<LoginState>({
-    status: 'pending',
+    status: 'pending'
   });
 
   // selectors
@@ -38,20 +38,14 @@ export class LoginService {
     // reducers
     this.userAuthenticated$
       .pipe(takeUntilDestroyed())
-      .subscribe(() =>
-        this.state.update((state) => ({ ...state, status: 'success' })),
-      );
+      .subscribe(() => this.state.update((state) => ({ ...state, status: 'success' })));
 
     this.login$
       .pipe(takeUntilDestroyed())
-      .subscribe(() =>
-        this.state.update((state) => ({ ...state, status: 'authenticating' })),
-      );
+      .subscribe(() => this.state.update((state) => ({ ...state, status: 'authenticating' })));
 
     this.error$
       .pipe(takeUntilDestroyed())
-      .subscribe(() =>
-        this.state.update((state) => ({ ...state, status: 'error' })),
-      );
+      .subscribe(() => this.state.update((state) => ({ ...state, status: 'error' })));
   }
 }

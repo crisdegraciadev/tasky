@@ -1,17 +1,13 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthState, Credentials } from '@shared/types/auth';
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { authState } from 'rxfire/auth';
 import { defer, from } from 'rxjs';
 import { AUTH } from 'src/app/app.config';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthService {
   private auth = inject(AUTH);
@@ -21,7 +17,7 @@ export class AuthService {
 
   // state
   private state = signal<AuthState>({
-    user: undefined,
+    user: undefined
   });
 
   // selectors
@@ -32,15 +28,13 @@ export class AuthService {
     this.user$.pipe(takeUntilDestroyed()).subscribe((user) =>
       this.state.update((state) => ({
         ...state,
-        user,
-      })),
+        user
+      }))
     );
   }
 
   login({ email, password }: Credentials) {
-    return from(
-      defer(() => signInWithEmailAndPassword(this.auth, email, password)),
-    );
+    return from(defer(() => signInWithEmailAndPassword(this.auth, email, password)));
   }
 
   logout() {
@@ -48,14 +42,6 @@ export class AuthService {
   }
 
   createAccount(credentials: Credentials) {
-    return from(
-      defer(() =>
-        createUserWithEmailAndPassword(
-          this.auth,
-          credentials.email,
-          credentials.password,
-        ),
-      ),
-    );
+    return from(defer(() => createUserWithEmailAndPassword(this.auth, credentials.email, credentials.password)));
   }
 }

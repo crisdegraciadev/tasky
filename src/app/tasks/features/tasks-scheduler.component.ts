@@ -12,16 +12,10 @@ import { Task } from '@shared/types/task';
 @Component({
   selector: 'app-tasks-scheduler',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    TodoBoardComponent,
-    MatTabsModule,
-    MatProgressSpinnerModule,
-  ],
+  imports: [CommonModule, MatCardModule, TodoBoardComponent, MatTabsModule, MatProgressSpinnerModule],
   templateUrl: './tasks-scheduler.component.html',
   styleUrls: ['./tasks-scheduler.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksSchedulerComponent {
   boardService = inject(BoardService);

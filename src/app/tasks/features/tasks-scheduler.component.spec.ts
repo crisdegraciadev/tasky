@@ -9,7 +9,7 @@ describe('TasksSchedulerComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TasksSchedulerComponent],
+      imports: [TasksSchedulerComponent]
     });
     fixture = TestBed.createComponent(TasksSchedulerComponent);
     component = fixture.componentInstance;
@@ -18,9 +18,7 @@ describe('TasksSchedulerComponent', () => {
 
   describe('template', () => {
     it('should have a card container element', () => {
-      const container = fixture.debugElement.query(
-        By.css('[data-testid=tasks-scheduler-container]'),
-      );
+      const container = fixture.debugElement.query(By.css('[data-testid=tasks-scheduler-container]'));
 
       expect(container).toBeTruthy();
     });

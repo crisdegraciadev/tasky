@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,31 +12,25 @@ import { LoginFormData } from '../../utils/types';
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-  ],
+  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginFormComponent {
   @Output() formSubmit = new EventEmitter<LoginFormData>();
 
   loginForm = new FormGroup({
     email: new FormControl(''),
-    password: new FormControl(''),
+    password: new FormControl('')
   });
 
+  // TODO: Refactor to signal
   #formErrors$ = new BehaviorSubject({ email: false, password: false });
   formErrors$ = this.#formErrors$.asObservable();
 
   onSubmit() {
-    const { email, password } = this.loginForm.value;
+    const { email, password } = this.loginForm.getRawValue();
 
     this.#formErrors$.next({ email: !email, password: !password });
 

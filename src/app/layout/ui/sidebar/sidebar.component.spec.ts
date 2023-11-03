@@ -16,11 +16,9 @@ describe('SidebarComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [SidebarComponent, HttpClientTestingModule],
-      providers: [
-        provideRouter([{ path: 'tasks', component: TasksSchedulerComponent }]),
-      ],
+      providers: [provideRouter([{ path: 'tasks', component: TasksSchedulerComponent }])]
     }).overrideComponent(SidebarComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     });
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
@@ -38,9 +36,7 @@ describe('SidebarComponent', () => {
     });
 
     it("should have a button with text 'New Task'", () => {
-      const newTaskButton = fixture.debugElement.query(
-        By.css('[data-testid=button-new-task]'),
-      );
+      const newTaskButton = fixture.debugElement.query(By.css('[data-testid=button-new-task]'));
 
       const button: HTMLButtonElement = newTaskButton.nativeElement!;
 
@@ -49,18 +45,14 @@ describe('SidebarComponent', () => {
     });
 
     it('should have a navigation menu', () => {
-      const menu = fixture.debugElement.query(
-        By.css('[data-testid=navigation-menu]'),
-      );
+      const menu = fixture.debugElement.query(By.css('[data-testid=navigation-menu]'));
 
       expect(menu).toBeTruthy();
     });
 
     it('should have a dashboard link in the navigation menu', () => {
       const dashboardLink = fixture.debugElement.query(
-        By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-dashboard-link]',
-        ),
+        By.css('[data-testid=navigation-menu] > [data-testid=navigation-dashboard-link]')
       );
 
       const button: HTMLButtonElement = dashboardLink.nativeElement!;
@@ -72,8 +64,8 @@ describe('SidebarComponent', () => {
     it('should have a home icon in dashboard link', () => {
       const icon = fixture.debugElement.query(
         By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-dashboard-link] > [data-testid=navigation-dashboard-link-icon]',
-        ),
+          '[data-testid=navigation-menu] > [data-testid=navigation-dashboard-link] > [data-testid=navigation-dashboard-link-icon]'
+        )
       );
 
       expect(icon).toBeTruthy();
@@ -82,9 +74,7 @@ describe('SidebarComponent', () => {
 
     it('should have a tasks link in the navigation menu', () => {
       const tasksLink = fixture.debugElement.query(
-        By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
-        ),
+        By.css('[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]')
       );
 
       const button: HTMLButtonElement = tasksLink.nativeElement!;
@@ -96,8 +86,8 @@ describe('SidebarComponent', () => {
     it('should have an edit icon in tasks link', () => {
       const icon = fixture.debugElement.query(
         By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link] > [data-testid=navigation-tasks-link-icon]',
-        ),
+          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link] > [data-testid=navigation-tasks-link-icon]'
+        )
       );
 
       expect(icon).toBeTruthy();
@@ -106,9 +96,7 @@ describe('SidebarComponent', () => {
 
     it('should have a reminders link in the navigation menu', () => {
       const remindersLink = fixture.debugElement.query(
-        By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-reminders-link]',
-        ),
+        By.css('[data-testid=navigation-menu] > [data-testid=navigation-reminders-link]')
       );
 
       const button: HTMLButtonElement = remindersLink.nativeElement!;
@@ -120,8 +108,8 @@ describe('SidebarComponent', () => {
     it('should have an event icon in reminders link', () => {
       const icon = fixture.debugElement.query(
         By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-reminders-link] > [data-testid=navigation-reminders-link-icon]',
-        ),
+          '[data-testid=navigation-menu] > [data-testid=navigation-reminders-link] > [data-testid=navigation-reminders-link-icon]'
+        )
       );
 
       expect(icon).toBeTruthy();
@@ -129,25 +117,19 @@ describe('SidebarComponent', () => {
     });
 
     it('should display an avatar in profile section', () => {
-      const avatar = fixture.debugElement.query(
-        By.css('[data-testid=profile]> [data-testid=avatar]'),
-      );
+      const avatar = fixture.debugElement.query(By.css('[data-testid=profile]> [data-testid=avatar]'));
 
       expect(avatar).toBeTruthy();
     });
 
     it('should display the user name in profile section', () => {
-      const name = fixture.debugElement.query(
-        By.css('[data-testid=profile]> [data-testid=name]'),
-      );
+      const name = fixture.debugElement.query(By.css('[data-testid=profile]> [data-testid=name]'));
 
       expect(name).toBeTruthy();
     });
 
     it('should have a settings navigation link', () => {
-      const settings = fixture.debugElement.query(
-        By.css('[data-testid=footer-settings-button]'),
-      );
+      const settings = fixture.debugElement.query(By.css('[data-testid=footer-settings-button]'));
 
       expect(settings).toBeTruthy();
       expect(settings.nativeElement.textContent).toMatch('Settings');
@@ -155,9 +137,7 @@ describe('SidebarComponent', () => {
 
     it('should have a settings navigation link', () => {
       const settings = fixture.debugElement.query(
-        By.css(
-          '[data-testid=footer-menu] > [data-testid=footer-settings-button]',
-        ),
+        By.css('[data-testid=footer-menu] > [data-testid=footer-settings-button]')
       );
 
       expect(settings).toBeTruthy();
@@ -167,8 +147,8 @@ describe('SidebarComponent', () => {
     it('should have a settings icon in settings link', () => {
       const icon = fixture.debugElement.query(
         By.css(
-          '[data-testid=footer-menu] > [data-testid=footer-settings-button] > [data-testid=footer-settings-button-icon]',
-        ),
+          '[data-testid=footer-menu] > [data-testid=footer-settings-button] > [data-testid=footer-settings-button-icon]'
+        )
       );
 
       expect(icon).toBeTruthy();
@@ -177,9 +157,7 @@ describe('SidebarComponent', () => {
 
     it('should have a logout navigation link', () => {
       const logout = fixture.debugElement.query(
-        By.css(
-          '[data-testid=footer-menu] > [data-testid=footer-logout-button]',
-        ),
+        By.css('[data-testid=footer-menu] > [data-testid=footer-logout-button]')
       );
 
       expect(logout).toBeTruthy();
@@ -189,8 +167,8 @@ describe('SidebarComponent', () => {
     it('should have a logout icon in logout link', () => {
       const icon = fixture.debugElement.query(
         By.css(
-          '[data-testid=footer-menu] > [data-testid=footer-logout-button] > [data-testid=footer-logout-button-icon]',
-        ),
+          '[data-testid=footer-menu] > [data-testid=footer-logout-button] > [data-testid=footer-logout-button-icon]'
+        )
       );
 
       expect(icon).toBeTruthy();
@@ -199,9 +177,7 @@ describe('SidebarComponent', () => {
 
     it('should have active class when an element is clicked', fakeAsync(() => {
       const tasksLink = fixture.debugElement.query(
-        By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
-        ),
+        By.css('[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]')
       );
 
       const button: HTMLButtonElement = tasksLink.nativeElement!;
@@ -216,23 +192,17 @@ describe('SidebarComponent', () => {
 
     it("should have 'background-color: #f5f5f5' when an element is clicked", () => {
       const tasksLink = fixture.debugElement.query(
-        By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
-        ),
+        By.css('[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]')
       );
 
       const button: HTMLButtonElement = tasksLink.nativeElement!;
 
-      expect(
-        button.computedStyleMap().get('background-color')?.toString(),
-      ).toBe('rgba(0, 0, 0, 0)');
+      expect(button.computedStyleMap().get('background-color')?.toString()).toBe('rgba(0, 0, 0, 0)');
 
       tasksLink.triggerEventHandler('click');
       fixture.detectChanges();
 
-      expect(
-        button.computedStyleMap().get('background-color')?.toString(),
-      ).toBe('rgb(245, 245, 245)');
+      expect(button.computedStyleMap().get('background-color')?.toString()).toBe('rgb(245, 245, 245)');
     });
   });
 
@@ -243,9 +213,7 @@ describe('SidebarComponent', () => {
       fixture.detectChanges();
 
       const tasksLink = fixture.debugElement.query(
-        By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
-        ),
+        By.css('[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]')
       );
 
       const button: HTMLButtonElement = tasksLink.nativeElement!;
@@ -259,9 +227,7 @@ describe('SidebarComponent', () => {
       const observerSpy = subscribeSpyTo(component.locationSelected);
 
       const tasksLink = fixture.debugElement.query(
-        By.css(
-          '[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]',
-        ),
+        By.css('[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]')
       ).nativeElement!;
 
       tasksLink.click();
@@ -274,9 +240,8 @@ describe('SidebarComponent', () => {
     it('should emit an event to create a new task', () => {
       const observerSpy = subscribeSpyTo(component.taskCreation);
 
-      const newTaskButton: HTMLButtonElement = fixture.debugElement.query(
-        By.css('[data-testid=button-new-task]'),
-      ).nativeElement!;
+      const newTaskButton: HTMLButtonElement = fixture.debugElement.query(By.css('[data-testid=button-new-task]'))
+        .nativeElement!;
 
       newTaskButton.click();
 

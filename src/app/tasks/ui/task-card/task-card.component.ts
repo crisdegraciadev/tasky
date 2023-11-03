@@ -9,9 +9,8 @@ import { Task } from '@shared/types/task';
   imports: [CommonModule, MatChipsModule],
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TaskCardComponent {
-  @Input()
-  task!: Task;
+  @Input() task!: Task;
 }

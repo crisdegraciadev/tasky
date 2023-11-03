@@ -9,7 +9,7 @@ import { Observable, Subject, defer, map, switchMap } from 'rxjs';
 import { FIRESTORE } from 'src/app/app.config';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class BoardService {
   private firestore = inject(FIRESTORE);
@@ -26,9 +26,9 @@ export class BoardService {
       backlog: [],
       todo: [],
       doing: [],
-      done: [],
+      done: []
     },
-    loaded: false,
+    loaded: false
   });
 
   // selectors
@@ -41,42 +41,40 @@ export class BoardService {
       this.state.update((state) => ({
         ...state,
         board,
-        loaded: true,
-      })),
+        loaded: true
+      }))
     );
 
     this.update$
       .pipe(
         takeUntilDestroyed(),
-        switchMap((newBoard) => this.updateBoard(newBoard)),
+        switchMap((newBoard) => this.updateBoard(newBoard))
       )
       .subscribe((newBoard) =>
         this.state.update((state) => ({
           ...state,
-          ...newBoard,
-        })),
+          ...newBoard
+        }))
       );
   }
 
   private getBoard(): Observable<Board> {
-    const userDoc$ = defer(() =>
-      getDoc(doc(this.firestore, 'users', this.authService.user()!.uid)),
-    );
+    const userDoc$ = defer(() => getDoc(doc(this.firestore, 'users', this.authService.user()!.uid)));
 
     return userDoc$.pipe(
       map((doc) => {
         const user = doc.data() as User;
         const { backlog, todo, doing, done } = user;
         return { backlog, todo, doing, done };
-      }),
+      })
     );
   }
 
   private updateBoard(newBoard: Board) {
     return defer(() =>
       updateDoc(doc(this.firestore, 'users', this.authService.user()!.uid), {
-        ...newBoard,
-      }),
+        ...newBoard
+      })
     ).pipe(switchMap(() => this.getBoard()));
   }
 }

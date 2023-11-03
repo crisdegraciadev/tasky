@@ -7,6 +7,6 @@ export const environment = {
     storageBucket: 'tasky-task-manager.appspot.com',
     apiKey: 'AIzaSyCyHOy65KKDZWVCW0gguEKMT22brWButmM',
     authDomain: 'tasky-task-manager.firebaseapp.com',
-    messagingSenderId: '759585836194',
-  },
+    messagingSenderId: '759585836194'
+  }
 };

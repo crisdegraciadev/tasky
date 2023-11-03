@@ -1,5 +1,11 @@
-<mat-card data-testid="tasks-scheduler-container" class="page-container">
-  <div class="loading" *ngIf="!boardService.loaded(); else tasksLaoded">
+<mat-card
+  data-testid="tasks-scheduler-container"
+  class="page-container"
+>
+  <div
+    class="loading"
+    *ngIf="!boardService.loaded(); else tasksLaoded"
+  >
     <mat-spinner />
   </div>
   <ng-template #tasksLaoded>

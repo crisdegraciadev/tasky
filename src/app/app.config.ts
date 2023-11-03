@@ -1,15 +1,6 @@
 import { provideHttpClient } from '@angular/common/http';
-import {
-  ApplicationConfig,
-  InjectionToken,
-  importProvidersFrom,
-} from '@angular/core';
-import {
-  Firestore,
-  connectFirestoreEmulator,
-  getFirestore,
-  initializeFirestore,
-} from 'firebase/firestore';
+import { ApplicationConfig, InjectionToken, importProvidersFrom } from '@angular/core';
+import { Firestore, connectFirestoreEmulator, getFirestore, initializeFirestore } from 'firebase/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { environment } from '@env/environment';
@@ -25,11 +16,11 @@ export const AUTH = new InjectionToken('Firebase auth', {
     const auth = getAuth();
     if (environment.useEmulators) {
       connectAuthEmulator(auth, 'http://localhost:9099', {
-        disableWarnings: true,
+        disableWarnings: true
       });
     }
     return auth;
-  },
+  }
 });
 
 export const FIRESTORE = new InjectionToken('Firebase firestore', {
@@ -43,13 +34,9 @@ export const FIRESTORE = new InjectionToken('Firebase firestore', {
       firestore = getFirestore();
     }
     return firestore;
-  },
+  }
 });
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideHttpClient(),
-    provideRouter(APP_ROUTES),
-    importProvidersFrom([BrowserAnimationsModule]),
-  ],
+  providers: [provideHttpClient(), provideRouter(APP_ROUTES), importProvidersFrom([BrowserAnimationsModule])]
 };

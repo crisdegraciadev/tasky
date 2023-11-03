@@ -9,7 +9,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   imports: [CommonModule, MatToolbarModule, MatTabsModule],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
   @Input()

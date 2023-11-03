@@ -1,5 +1,5 @@
 export const Routes = {
   AUTH: 'auth',
   DASHBOARD: 'dashboard',
-  TASKS: 'tasks',
+  TASKS: 'tasks'
 } as const;

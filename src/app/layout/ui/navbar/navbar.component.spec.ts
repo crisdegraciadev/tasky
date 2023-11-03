@@ -10,9 +10,9 @@ describe('NavbarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NavbarComponent],
+      imports: [NavbarComponent]
     }).overrideComponent(NavbarComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default },
+      set: { changeDetection: ChangeDetectionStrategy.Default }
     });
 
     fixture = TestBed.createComponent(NavbarComponent);
@@ -28,9 +28,7 @@ describe('NavbarComponent', () => {
     });
 
     it('should display the current location inside the navbar', () => {
-      const location = fixture.debugElement.query(
-        By.css('[data-testid=navbar] > [data-testid=navbar-location]'),
-      );
+      const location = fixture.debugElement.query(By.css('[data-testid=navbar] > [data-testid=navbar-location]'));
 
       expect(location).toBeTruthy();
     });
@@ -38,12 +36,7 @@ describe('NavbarComponent', () => {
     it('should have background-color: #d32f2f', () => {
       const navbar = fixture.debugElement.query(By.css('[data-testid=navbar]'));
 
-      expect(
-        navbar.nativeElement
-          .computedStyleMap()
-          .get('background-color')
-          ?.toString(),
-      ).toBe('rgb(63, 81, 181)');
+      expect(navbar.nativeElement.computedStyleMap().get('background-color')?.toString()).toBe('rgb(63, 81, 181)');
     });
   });
 
@@ -53,9 +46,7 @@ describe('NavbarComponent', () => {
 
       fixture.detectChanges();
 
-      const location = fixture.debugElement.query(
-        By.css('[data-testid=navbar] > [data-testid=navbar-location]'),
-      );
+      const location = fixture.debugElement.query(By.css('[data-testid=navbar] > [data-testid=navbar-location]'));
 
       expect(location.nativeElement.textContent).toMatch('Tasks');
     });

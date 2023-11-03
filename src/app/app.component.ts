@@ -10,7 +10,7 @@ import { Routes } from '@shared/consts/routes.const';
   standalone: true,
   imports: [CommonModule, RouterModule, LayoutComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   authService: AuthService = inject(AuthService);

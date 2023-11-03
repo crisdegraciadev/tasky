@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginFormComponent } from '../ui/login-form/login-form.component';
 import { AuthService } from '@shared/data-access/auth.service';
@@ -19,7 +14,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   imports: [CommonModule, LoginFormComponent, MatSnackBarModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthComponent {
   authService: AuthService = inject(AuthService);

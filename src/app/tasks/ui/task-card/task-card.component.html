@@ -1,13 +1,33 @@
-<div data-testid="card-container" class="card-container">
-  <div data-testid="card-header" class="card-header">
-    <h3 data-testid="card-header-title" class="card-title">{{ task.title }}</h3>
-    <h4 data-testid="card-header-description" class="card-description">
+<div
+  data-testid="card-container"
+  class="card-container"
+>
+  <div
+    data-testid="card-header"
+    class="card-header"
+  >
+    <h3
+      data-testid="card-header-title"
+      class="card-title"
+    >
+      {{ task.title }}
+    </h3>
+    <h4
+      data-testid="card-header-description"
+      class="card-description"
+    >
       {{ task.description }}
     </h4>
   </div>
 
-  <div data-testid="card-body" class="card-body">
-    <mat-chip-set data-testid="card-body-tags" class="card-body-tags">
+  <div
+    data-testid="card-body"
+    class="card-body"
+  >
+    <mat-chip-set
+      data-testid="card-body-tags"
+      class="card-body-tags"
+    >
       <mat-chip
         class="tag"
         [ngStyle]="{ 'background-color': tag.color, color: 'white' }"
