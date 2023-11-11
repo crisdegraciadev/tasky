@@ -4,10 +4,10 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { TodoBoardComponent } from '@tasks/ui/todo-board/todo-board.component';
-import { BoardService } from '@tasks/data-access/board.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Board } from '@tasks/utils/types';
 import { Task } from '@shared/types/task';
+import { TaskService } from '@shared/data-access/task.service';
 
 @Component({
   selector: 'app-tasks-scheduler',
@@ -18,11 +18,11 @@ import { Task } from '@shared/types/task';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksSchedulerComponent {
-  boardService = inject(BoardService);
+  taskService = inject(TaskService);
 
   constructor() {}
 
   updateBoard(newBoard: Board) {
-    this.boardService.update$.next(newBoard);
+    this.taskService.update$.next(newBoard);
   }
 }

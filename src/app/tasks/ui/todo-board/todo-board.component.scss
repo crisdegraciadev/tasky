@@ -5,28 +5,23 @@
   height: 100%;
 
   .column-container {
-    background-color: #fafafa;
-    padding: 1rem;
-    height: calc(100% - 2rem);
+    display: flex;
+    flex-direction: column;
     border-radius: 0.25rem;
-    box-shadow:
-      rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
-      rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 
     h2 {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: 500;
+      margin: 1rem;
     }
 
     .column-list {
       display: flex;
       flex-direction: column;
+      flex-grow: 1;
       gap: 0.5rem;
-      height: 100%;
-
-      .task-card {
-        width: 100%;
-      }
+      margin: 0.5rem;
+      min-height: 32rem;
     }
   }
 }

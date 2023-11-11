@@ -4,4 +4,11 @@ mat-sidenav-container {
   mat-sidenav {
     width: 256px;
   }
+
+  .page-content{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+  }
 }

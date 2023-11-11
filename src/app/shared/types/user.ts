@@ -1,7 +1,8 @@
-import { Task } from './task';
+import { Tag, Task } from './task';
 
 export type User = {
-  name: string[];
+  name: string;
+  tags: Tag[];
   backlog: Task[];
   todo: Task[];
   doing: Task[];

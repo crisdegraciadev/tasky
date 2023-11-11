@@ -5,7 +5,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -15,6 +15,8 @@ import { AppRoute } from '@shared/types/routes';
 import { Routes } from '@shared/consts/routes.const';
 import { AuthService } from '@shared/data-access/auth.service';
 import { TaskCreateDialogComponent } from '@shared/ui/task-create-dialog/task-create-dialog.component';
+import { TagService } from '@shared/data-access/tag.service';
+import { TaskService } from '@shared/data-access/task.service';
 
 @Component({
   selector: 'app-layout',
@@ -37,6 +39,8 @@ import { TaskCreateDialogComponent } from '@shared/ui/task-create-dialog/task-cr
 })
 export class LayoutComponent implements OnInit {
   authService = inject(AuthService);
+  taskService = inject(TaskService);
+  tagService = inject(TagService);
 
   dialog = inject(MatDialog);
 
@@ -69,14 +73,11 @@ export class LayoutComponent implements OnInit {
   onTaskCreation() {
     const dialog = this.dialog.open(TaskCreateDialogComponent, {
       data: {
-        tags: [
-          { value: 'Ingles', color: '#D32F2F' },
-          { value: 'Lengua', color: '#D32F2F' }
-        ]
+        tags: this.tagService.tags()
       }
     });
 
-    dialog.componentInstance.formSubmit.subscribe((result) => console.log({ result }));
+    dialog.componentInstance.formSubmit.pipe(take(1)).subscribe((newTask) => this.taskService.add$.next(newTask));
   }
 
   onLogoutClick() {

@@ -7,3 +7,9 @@ export type TaskCreateDialogData = {
 export type TaskCreateFormData = Omit<Task, 'tags'> & {
   tags: string[];
 };
+
+export type TagState = {
+  tags: Tag[];
+};
+
+export type TaskState = {};

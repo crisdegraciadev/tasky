@@ -1,18 +1,15 @@
-<mat-card
-  data-testid="tasks-scheduler-container"
-  class="page-container"
->
+<div class="page-container">
   <div
     class="loading"
-    *ngIf="!boardService.loaded(); else tasksLaoded"
+    *ngIf="!taskService.loaded(); else tasksLaoded"
   >
     <mat-spinner />
   </div>
   <ng-template #tasksLaoded>
     <app-todo-board
       class="todo-board"
-      [board]="boardService.board()"
+      [board]="taskService.board()"
       (boardUpdate)="updateBoard($event)"
     />
   </ng-template>
-</mat-card>
+</div>

@@ -14,7 +14,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { TaskCreateDialogData, TaskCreateFormData } from '@layout/utils/types';
+import { TaskCreateDialogData, TaskCreateFormData } from '@shared/utils/types';
+import { Task } from '@shared/types/task';
 
 @Component({
   selector: 'app-task-create-dialog',
@@ -41,7 +42,7 @@ export class TaskCreateDialogComponent {
   data: TaskCreateDialogData = inject(MAT_DIALOG_DATA);
   dialogRef = inject(MatDialogRef<TaskCreateDialogData>);
 
-  @Output() formSubmit = new EventEmitter<TaskCreateFormData>();
+  @Output() formSubmit = new EventEmitter<Task>();
 
   newTaskForm = new FormGroup({
     title: new FormControl(''),
@@ -72,7 +73,13 @@ export class TaskCreateDialogComponent {
     }));
 
     if (title && description && tags?.length >= 1 && startDate) {
-      this.formSubmit.emit({ title, description, tags, startDate, endDate });
+      this.formSubmit.emit({ title, description, tags: this.getSelectedTags(tags), startDate, endDate });
+      this.dialogRef.close();
     }
+  }
+
+  private getSelectedTags(selectedTags: string[]) {
+    const { tags } = this.data;
+    return tags.filter(({ value }) => selectedTags.includes(value));
   }
 }

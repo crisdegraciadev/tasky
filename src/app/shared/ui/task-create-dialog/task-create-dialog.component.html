@@ -22,7 +22,7 @@
           placeholder="Insert task title"
         />
         <mat-error
-          data-testid="login-form-email-error"
+          data-testid="task-create-title-error"
           *ngIf="formErrors().title"
         >
           Title field is required
@@ -40,8 +40,8 @@
         ></textarea>
 
         <mat-error
-          data-testid="login-form-email-error"
-          *ngIf="formErrors().title"
+          data-testid="task-create-description-error"
+          *ngIf="formErrors().description"
         >
           Description field is required
         </mat-error>
@@ -116,7 +116,7 @@
         </mat-select>
 
         <mat-error
-          data-testid="login-form-email-error"
+          data-testid="task-create-tags-error"
           *ngIf="formErrors().tags"
         >
           At least 1 tag should be selected

@@ -17,10 +17,8 @@ describe('TasksSchedulerComponent', () => {
   });
 
   describe('template', () => {
-    it('should have a card container element', () => {
-      const container = fixture.debugElement.query(By.css('[data-testid=tasks-scheduler-container]'));
+    it('should show a board when data is provided');
 
-      expect(container).toBeTruthy();
-    });
+    it('should show a loading spinner when service is fetching data');
   });
 });

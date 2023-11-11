@@ -10,6 +10,7 @@ import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { MatSelectHarness } from '@angular/material/select/testing';
 import { TaskCreateDialogComponent } from './task-create-dialog.component';
+import { Tag } from '@shared/types/task';
 
 describe('TaskCreateDialogComponent', () => {
   let component: TaskCreateDialogComponent;
@@ -20,7 +21,7 @@ describe('TaskCreateDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [TaskCreateDialogComponent, BrowserAnimationsModule, MatNativeDateModule],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialogRef, useValue: { close: () => {} } },
         { provide: MAT_DIALOG_DATA, useValue: {} }
       ]
     });
@@ -117,15 +118,15 @@ describe('TaskCreateDialogComponent', () => {
   });
 
   describe('output: formSubmit', () => {
+    const FORM_DATA = {
+      title: 'Examén de ingles',
+      description: 'Estudiar temas 2 y 3.',
+      tags: [{ value: 'Ingles', color: '#D32F2F' }],
+      startDate: '11/3/2023'
+    };
+
     it('should submit form data', async () => {
       const observerSpy = subscribeSpyTo(component.formSubmit);
-
-      const FORM_DATA = {
-        title: 'Examén de ingles',
-        description: 'Estudiar temas 2 y 3.',
-        tags: [{ value: 'Ingles', color: '#D32F2F' }],
-        startDate: '11/3/2023'
-      };
 
       const titleInput: HTMLInputElement = fixture.debugElement.query(By.css('[data-testid=task-create-title-field]'))
         .nativeElement!;
@@ -166,16 +167,200 @@ describe('TaskCreateDialogComponent', () => {
       expect(observerSpy.getLastValue()?.title).toBe(title);
       expect(observerSpy.getLastValue()?.description).toBe(description);
       expect(observerSpy.getLastValue()?.startDate.getDate()).toBe(new Date(startDate).getDate());
-      expect(observerSpy.getLastValue()?.tags).toEqual(tags.map(({ value }) => value));
+      expect(observerSpy.getLastValue()?.tags).toEqual(tags as Tag[]);
     });
 
-    it('should NOT emit form data when input title is empty');
-    it('should show error message when input title is not filled');
+    it('should NOT emit form data when input title is empty', async () => {
+      const observerSpy = subscribeSpyTo(component.formSubmit);
 
-    it('should NOT emit form data when input description is empty');
-    it('should show error message when input description is not filled');
+      const descriptionField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-description-field]')
+      ).nativeElement!;
 
-    it('should NOT emit form data when input tags is empty');
-    it('should show error message when input tags is not filled');
+      descriptionField.value = FORM_DATA.description;
+      descriptionField.dispatchEvent(new Event('input'));
+
+      const startDateField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-start-date]')
+      ).nativeElement!;
+
+      startDateField.value = FORM_DATA.startDate;
+      startDateField.dispatchEvent(new Event('input'));
+
+      const select = await loader.getHarness(MatSelectHarness);
+      await select.open();
+      const options = await select.getOptions();
+
+      await options[0].click();
+
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(By.css('[data-testid=task-create-button]'))
+        .nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      expect(observerSpy.receivedNext()).toBeFalse();
+    });
+
+    it('should show error message when input title is not filled', async () => {
+      const descriptionField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-description-field]')
+      ).nativeElement!;
+
+      descriptionField.value = FORM_DATA.description;
+      descriptionField.dispatchEvent(new Event('input'));
+
+      const startDateField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-start-date]')
+      ).nativeElement!;
+
+      startDateField.value = FORM_DATA.startDate;
+      startDateField.dispatchEvent(new Event('input'));
+
+      const select = await loader.getHarness(MatSelectHarness);
+      await select.open();
+      const options = await select.getOptions();
+
+      await options[0].click();
+
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(By.css('[data-testid=task-create-button]'))
+        .nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      const failHint = fixture.debugElement.query(By.css('[data-testid=task-create-title-error]'));
+
+      expect(failHint).toBeTruthy();
+      expect(failHint.nativeElement.textContent).toMatch('Title field is required');
+    });
+
+    it('should NOT emit form data when input description is empty', async () => {
+      const observerSpy = subscribeSpyTo(component.formSubmit);
+
+      const titleInput: HTMLInputElement = fixture.debugElement.query(By.css('[data-testid=task-create-title-field]'))
+        .nativeElement!;
+
+      titleInput.value = FORM_DATA.title;
+      titleInput.dispatchEvent(new Event('input'));
+
+      const startDateField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-start-date]')
+      ).nativeElement!;
+
+      startDateField.value = FORM_DATA.startDate;
+      startDateField.dispatchEvent(new Event('input'));
+
+      const select = await loader.getHarness(MatSelectHarness);
+      await select.open();
+      const options = await select.getOptions();
+
+      await options[0].click();
+
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(By.css('[data-testid=task-create-button]'))
+        .nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      expect(observerSpy.receivedNext()).toBeFalse();
+    });
+
+    it('should show error message when input description is not filled', async () => {
+      const titleInput: HTMLInputElement = fixture.debugElement.query(By.css('[data-testid=task-create-title-field]'))
+        .nativeElement!;
+
+      titleInput.value = FORM_DATA.title;
+      titleInput.dispatchEvent(new Event('input'));
+
+      const startDateField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-start-date]')
+      ).nativeElement!;
+
+      startDateField.value = FORM_DATA.startDate;
+      startDateField.dispatchEvent(new Event('input'));
+
+      const select = await loader.getHarness(MatSelectHarness);
+      await select.open();
+      const options = await select.getOptions();
+
+      await options[0].click();
+
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(By.css('[data-testid=task-create-button]'))
+        .nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      const failHint = fixture.debugElement.query(By.css('[data-testid=task-create-description-error]'));
+
+      expect(failHint).toBeTruthy();
+      expect(failHint.nativeElement.textContent).toMatch('Description field is required');
+    });
+
+    it('should NOT emit form data when input tags is empty', () => {
+      const observerSpy = subscribeSpyTo(component.formSubmit);
+
+      const titleInput: HTMLInputElement = fixture.debugElement.query(By.css('[data-testid=task-create-title-field]'))
+        .nativeElement!;
+
+      titleInput.value = FORM_DATA.title;
+      titleInput.dispatchEvent(new Event('input'));
+
+      const descriptionField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-description-field]')
+      ).nativeElement!;
+
+      descriptionField.value = FORM_DATA.description;
+      descriptionField.dispatchEvent(new Event('input'));
+
+      const startDateField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-start-date]')
+      ).nativeElement!;
+
+      startDateField.value = FORM_DATA.startDate;
+      startDateField.dispatchEvent(new Event('input'));
+
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(By.css('[data-testid=task-create-button]'))
+        .nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      expect(observerSpy.receivedNext()).toBeFalse();
+    });
+
+    it('should show error message when input tags is not filled', () => {
+      const titleInput: HTMLInputElement = fixture.debugElement.query(By.css('[data-testid=task-create-title-field]'))
+        .nativeElement!;
+
+      titleInput.value = FORM_DATA.title;
+      titleInput.dispatchEvent(new Event('input'));
+
+      const descriptionField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-description-field]')
+      ).nativeElement!;
+
+      descriptionField.value = FORM_DATA.description;
+      descriptionField.dispatchEvent(new Event('input'));
+
+      const startDateField: HTMLInputElement = fixture.debugElement.query(
+        By.css('[data-testid=task-create-start-date]')
+      ).nativeElement!;
+
+      startDateField.value = FORM_DATA.startDate;
+      startDateField.dispatchEvent(new Event('input'));
+
+      const submitButton: HTMLButtonElement = fixture.debugElement.query(By.css('[data-testid=task-create-button]'))
+        .nativeElement!;
+
+      submitButton.click();
+      fixture.detectChanges();
+
+      const failHint = fixture.debugElement.query(By.css('[data-testid=task-create-tags-error]'));
+
+      expect(failHint).toBeTruthy();
+      expect(failHint.nativeElement.textContent).toMatch('At least 1 tag should be selected');
+    });
   });
 });

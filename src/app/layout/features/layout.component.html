@@ -13,9 +13,12 @@
         (logoutClick)="onLogoutClick()"
       />
     </mat-sidenav>
-    <mat-sidenav-content data-testid="content">
+    <mat-sidenav-content
+      data-testid="content"
+      class="page-content"
+    >
       <app-navbar [location]="currentLocation | titlecase" />
-      <router-outlet />
+      <router-outlet class="outlet" />
     </mat-sidenav-content>
   </mat-sidenav-container>
 </ng-container>
