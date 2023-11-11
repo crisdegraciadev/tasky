@@ -1,26 +1,31 @@
-<ng-container *ngIf="currentLocation$ | async as currentLocation; else error">
-  <mat-sidenav-container data-testid="container">
-    <mat-sidenav
-      class="sidebar"
-      data-testid="sidenav"
-      mode="side"
-      opened
-    >
-      <app-sidebar
-        [currentLocation]="currentLocation"
-        (locationSelected)="onLocationSelected($event)"
-        (taskCreation)="onTaskCreation()"
-        (logoutClick)="onLogoutClick()"
-      />
-    </mat-sidenav>
-    <mat-sidenav-content
-      data-testid="content"
-      class="page-content"
-    >
-      <app-navbar [location]="currentLocation | titlecase" />
-      <router-outlet class="outlet" />
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+<ng-container *ngIf="profileService.loaded(); else loading">
+  <ng-container *ngIf="currentLocation$ | async as currentLocation; else error">
+    <mat-sidenav-container data-testid="container">
+      <mat-sidenav
+        class="sidebar"
+        data-testid="sidenav"
+        mode="side"
+        opened
+      >
+        <app-sidebar
+          [currentLocation]="currentLocation"
+          [profile]="profileService.profile()!"
+          (locationSelected)="onLocationSelected($event)"
+          (taskCreation)="onTaskCreation()"
+          (logoutClick)="onLogoutClick()"
+        />
+      </mat-sidenav>
+      <mat-sidenav-content
+        data-testid="content"
+        class="page-content"
+      >
+        <app-navbar [location]="currentLocation | titlecase" />
+        <router-outlet class="outlet" />
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </ng-container>
+
+  <ng-template #error>Error</ng-template>
 </ng-container>
 
-<ng-template #error>Error</ng-template>
+<ng-template #loading>Loading</ng-template>

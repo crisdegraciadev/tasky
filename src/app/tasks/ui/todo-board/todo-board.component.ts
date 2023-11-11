@@ -1,10 +1,10 @@
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatDividerModule } from '@angular/material/divider';
-import { TaskCardComponent } from '../task-card/task-card.component';
 import { Task } from '@shared/types/task';
 import { Board } from '@tasks/utils/types';
+import { TaskCardComponent } from '../task-card/task-card.component';
 
 @Component({
   selector: 'app-todo-board',

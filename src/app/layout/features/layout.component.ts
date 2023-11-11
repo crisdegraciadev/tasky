@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -17,6 +17,7 @@ import { AuthService } from '@shared/data-access/auth.service';
 import { TaskCreateDialogComponent } from '@shared/ui/task-create-dialog/task-create-dialog.component';
 import { TagService } from '@shared/data-access/tag.service';
 import { TaskService } from '@shared/data-access/task.service';
+import { ProfileService } from '@shared/data-access/profile.service';
 
 @Component({
   selector: 'app-layout',
@@ -39,6 +40,7 @@ import { TaskService } from '@shared/data-access/task.service';
 })
 export class LayoutComponent implements OnInit {
   authService = inject(AuthService);
+  profileService = inject(ProfileService);
   taskService = inject(TaskService);
   tagService = inject(TagService);
 

@@ -35,7 +35,7 @@ describe('SidebarComponent', () => {
       expect(h1.textContent).toContain('Tasky');
     });
 
-    it("should have a button with text 'New Task'", () => {
+    it('should have a button with text "New Task"', () => {
       const newTaskButton = fixture.debugElement.query(By.css('[data-testid=button-new-task]'));
 
       const button: HTMLButtonElement = newTaskButton.nativeElement!;
@@ -190,7 +190,7 @@ describe('SidebarComponent', () => {
       expect(button.classList).toContain('active');
     }));
 
-    it("should have 'background-color: #f5f5f5' when an element is clicked", () => {
+    it('should have "background-color: #f5f5f5" when an element is clicked', () => {
       const tasksLink = fixture.debugElement.query(
         By.css('[data-testid=navigation-menu] > [data-testid=navigation-tasks-link]')
       );
@@ -223,7 +223,7 @@ describe('SidebarComponent', () => {
   });
 
   describe('output: locationSelected', () => {
-    it("should emit 'tasks' as selected location when clicking the link", () => {
+    it('should emit "tasks" as selected location when clicking the link', () => {
       const observerSpy = subscribeSpyTo(component.locationSelected);
 
       const tasksLink = fixture.debugElement.query(

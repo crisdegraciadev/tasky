@@ -48,6 +48,8 @@ describe('TaskCardComponent', () => {
 
       expect(description).toBeTruthy();
     });
+
+    it('should display range date');
   });
 
   describe('input: item', () => {

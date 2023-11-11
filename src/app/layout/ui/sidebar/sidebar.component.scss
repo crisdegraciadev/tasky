@@ -67,10 +67,16 @@
     .footer-menu {
       display: flex;
       flex-direction: column;
+      align-items: center;
 
       .footer-button {
         display: flex;
         justify-content: flex-start;
+      }
+
+      .version {
+        margin-top: 1rem;
+        font-weight: 500;
       }
     }
   }
