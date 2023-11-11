@@ -18,6 +18,7 @@ import { TaskCreateDialogComponent } from '@shared/ui/task-create-dialog/task-cr
 import { TagService } from '@shared/data-access/tag.service';
 import { TaskService } from '@shared/data-access/task.service';
 import { ProfileService } from '@shared/data-access/profile.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-layout',
@@ -33,7 +34,8 @@ import { ProfileService } from '@shared/data-access/profile.service';
     SidebarComponent,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']

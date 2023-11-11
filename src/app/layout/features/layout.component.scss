@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
 mat-sidenav-container {
   height: 100%;
 
@@ -5,10 +10,16 @@ mat-sidenav-container {
     width: 256px;
   }
 
-  .page-content{
+  .page-content {
     display: flex;
     flex-direction: column;
     height: 100%;
-
   }
+}
+
+.loading-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
