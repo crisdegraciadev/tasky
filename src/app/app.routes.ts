@@ -6,10 +6,15 @@ export const APP_ROUTES: Route[] = [
   {
     path: Routes.TASKS,
     canActivate: [isAuthenticatedGuard()],
-    loadChildren: () => import('./tasks/features/tasks-scheduler.routes').then((mod) => mod.TASKS_ROUTES)
+    loadChildren: () => import('./tasks/tasks-scheduler.routes').then((mod) => mod.TASKS_ROUTES)
+  },
+  {
+    path: Routes.SETTINGS,
+    canActivate: [isAuthenticatedGuard()],
+    loadChildren: () => import('./settings/settings.routes').then((mod) => mod.SETTINGS_ROUTES)
   },
   {
     path: Routes.AUTH,
-    loadChildren: () => import('./auth/features/auth.routes').then((mod) => mod.AUTH_ROUTES)
+    loadChildren: () => import('./auth/auth.routes').then((mod) => mod.AUTH_ROUTES)
   }
 ];

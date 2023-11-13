@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, effect } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -15,11 +15,10 @@ import { AvatarModule } from 'ngx-avatars';
   standalone: true,
   imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, AvatarModule, MatListModule, MatDividerModule],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
-  @Input() currentLocation!: AppRoute;
+export class SidebarComponent {
+  @Input() currentRoute!: AppRoute;
 
   @Input() profile!: Profile;
 
@@ -31,17 +30,13 @@ export class SidebarComponent implements OnInit {
 
   version = '0.0.1';
 
-  ngOnInit(): void {
-    console.log(this.profile);
-  }
-
   createTask() {
     this.taskCreation.emit();
   }
 
   selectLocation(location: AppRoute) {
     this.locationSelected.emit(location);
-    this.currentLocation = location;
+    this.currentRoute = location;
   }
 
   handleLogout() {

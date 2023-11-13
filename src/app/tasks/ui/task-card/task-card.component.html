@@ -28,14 +28,15 @@
       data-testid="card-body-tags"
       class="card-body-tags"
     >
-      <mat-chip
-        class="tag"
-        [ngStyle]="{ 'background-color': tag.color, color: 'white' }"
-        highlighted
-        *ngFor="let tag of task.tags"
-      >
-        {{ tag.value | titlecase }}
-      </mat-chip>
+      @for (tag of task.tags; track tag.value) {
+        <mat-chip
+          class="tag"
+          highlighted
+          [ngStyle]="{ 'background-color': tag.color, color: 'white' }"
+        >
+          {{ tag.value | titlecase }}
+        </mat-chip>
+      }
     </mat-chip-set>
   </div>
 </div>

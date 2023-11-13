@@ -17,18 +17,21 @@ export class AuthService {
 
   // state
   private state = signal<AuthState>({
-    user: undefined
+    user: undefined,
+    status: 'fetching'
   });
 
   // selectors
   user = computed(() => this.state().user);
+  status = computed(() => this.state().status);
 
   constructor() {
     // redeucers
     this.user$.pipe(takeUntilDestroyed()).subscribe((user) =>
       this.state.update((state) => ({
         ...state,
-        user
+        user,
+        status: user === null ? 'unauthenticated' : 'authenticated'
       }))
     );
   }

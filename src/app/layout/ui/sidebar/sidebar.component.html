@@ -45,7 +45,7 @@
         disabled
         data-testid="navigation-dashboard-link"
         class="navigation-button"
-        [ngClass]="{ active: currentLocation === 'dashboard' }"
+        [ngClass]="{ active: currentRoute === 'dashboard' }"
         (click)="selectLocation('dashboard')"
         mat-button
       >
@@ -56,7 +56,7 @@
       <button
         data-testid="navigation-tasks-link"
         class="navigation-button"
-        [ngClass]="{ active: currentLocation === 'tasks' }"
+        [ngClass]="{ active: currentRoute === 'tasks' }"
         (click)="selectLocation('tasks')"
         mat-button
       >
@@ -68,7 +68,7 @@
         disabled
         data-testid="navigation-reminders-link"
         class="navigation-button"
-        [ngClass]="{ active: currentLocation === 'reminders' }"
+        [ngClass]="{ active: currentRoute === 'reminders' }"
         (click)="selectLocation('reminders')"
         mat-button
       >
@@ -84,9 +84,9 @@
       class="footer-menu"
     >
       <button
-        disabled
         data-testid="footer-settings-button"
-        class="footer-button"
+        [ngClass]="{ active: currentRoute === 'settings' }"
+        (click)="selectLocation('settings')"
         mat-button
       >
         <mat-icon data-testid="footer-settings-button-icon">settings</mat-icon>

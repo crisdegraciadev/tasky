@@ -1,5 +1,4 @@
 <mat-card
-  *ngIf="formErrors$ | async as errors"
   class="login-form-card"
   data-testid="login-form-card"
 >
@@ -24,12 +23,9 @@
           matInput
           required
         />
-        <mat-error
-          data-testid="login-form-email-error"
-          *ngIf="errors.email"
-        >
-          Email field is required
-        </mat-error>
+        @if (formErrors().email) {
+          <mat-error data-testid="login-form-email-error">Email field is required</mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field
@@ -46,12 +42,9 @@
           required
         />
 
-        <mat-error
-          data-testid="login-form-password-error"
-          *ngIf="errors.password"
-        >
-          Password field is required
-        </mat-error>
+        @if (formErrors().password) {
+          <mat-error data-testid="login-form-password-error">Password field is required</mat-error>
+        }
       </mat-form-field>
 
       <button

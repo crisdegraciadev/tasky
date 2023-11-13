@@ -1,0 +1,31 @@
+@if (!profileService.loaded()) {
+  <div class="loading-overlay">
+    <mat-spinner />
+  </div>
+} @else if (profileService.profile()) {
+  <mat-sidenav-container data-testid="container">
+    <mat-sidenav
+      class="sidebar"
+      data-testid="sidenav"
+      mode="side"
+      opened
+    >
+      <app-sidebar
+        [currentRoute]="currentRoute()"
+        [profile]="profileService.profile()!"
+        (locationSelected)="onLocationSelected($event)"
+        (taskCreation)="onTaskCreation()"
+        (logoutClick)="onLogoutClick()"
+      />
+    </mat-sidenav>
+    <mat-sidenav-content
+      data-testid="content"
+      class="page-content"
+    >
+      <app-navbar [currentRoute]="currentRoute() | titlecase" />
+      <router-outlet class="outlet" />
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+} @else {
+  <ng-template #error>Error</ng-template>
+}

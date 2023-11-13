@@ -1,15 +1,13 @@
 <div class="page-container">
-  <div
-    class="loading"
-    *ngIf="!taskService.loaded(); else tasksLaoded"
-  >
-    <mat-spinner />
-  </div>
-  <ng-template #tasksLaoded>
+  @if (!taskService.loaded()) {
+    <div class="loading">
+      <mat-spinner />
+    </div>
+  } @else {
     <app-todo-board
       class="todo-board"
       [board]="taskService.board()"
       (boardUpdate)="updateBoard($event)"
     />
-  </ng-template>
+  }
 </div>

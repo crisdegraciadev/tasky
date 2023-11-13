@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginFormComponent } from '../ui/login-form/login-form.component';
-import { AuthService } from '@shared/data-access/auth.service';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Routes } from '@shared/consts/routes.const';
+import { AuthService } from '@shared/data-access/auth.service';
 import { Credentials } from '@shared/types/auth';
-import { LoginService } from '../data-access/login.service';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginService } from './data-access/login.service';
+import { LoginFormComponent } from './ui/login-form/login-form.component';
 
 @Component({
   selector: 'app-auth',

@@ -1,7 +1,5 @@
-<ng-container *ngIf="isLoggedIn; else renderLogin">
+@if (authService.user()) {
   <app-layout />
-</ng-container>
-
-<ng-template #renderLogin>
+} @else {
   <router-outlet />
-</ng-template>
+}

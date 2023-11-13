@@ -12,6 +12,5 @@ import { MatTabsModule } from '@angular/material/tabs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavbarComponent {
-  @Input()
-  location!: string;
+  @Input() currentRoute!: string;
 }

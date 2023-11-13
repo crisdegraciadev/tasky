@@ -6,8 +6,7 @@ import { provideRouter } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SidebarComponent } from './sidebar.component';
 import { By } from '@angular/platform-browser';
-import { ChangeDetectionStrategy } from '@angular/core';
-import { TasksSchedulerComponent } from '@tasks/features/tasks-scheduler.component';
+import { TasksSchedulerComponent } from '@tasks/tasks-scheduler.component';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -17,11 +16,11 @@ describe('SidebarComponent', () => {
     TestBed.configureTestingModule({
       imports: [SidebarComponent, HttpClientTestingModule],
       providers: [provideRouter([{ path: 'tasks', component: TasksSchedulerComponent }])]
-    }).overrideComponent(SidebarComponent, {
-      set: { changeDetection: ChangeDetectionStrategy.Default }
     });
+
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;
+    component.profile = { name: 'ana', email: 'ana@gmail.com' };
     fixture.detectChanges();
   });
 
@@ -208,7 +207,7 @@ describe('SidebarComponent', () => {
 
   describe('input: currentLocation', () => {
     it('should add active class to the link with the matching location', () => {
-      component.currentLocation = 'tasks';
+      component.currentRoute = 'tasks';
 
       fixture.detectChanges();
 
@@ -233,6 +232,18 @@ describe('SidebarComponent', () => {
       tasksLink.click();
 
       expect(observerSpy.getLastValue()).toBe('tasks');
+    });
+
+    it('should emit "tasks" as selected location when clicking the link', () => {
+      const observerSpy = subscribeSpyTo(component.locationSelected);
+
+      const tasksLink = fixture.debugElement.query(
+        By.css('[data-testid=footer-menu] [data-testid=footer-settings-button]')
+      ).nativeElement!;
+
+      tasksLink.click();
+
+      expect(observerSpy.getLastValue()).toBe('settings');
     });
   });
 

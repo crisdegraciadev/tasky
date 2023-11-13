@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
 import { LoginFormData } from '../../utils/types';
 
 @Component({
@@ -25,17 +23,21 @@ export class LoginFormComponent {
     password: new FormControl('')
   });
 
-  // TODO: Refactor to signal
-  #formErrors$ = new BehaviorSubject({ email: false, password: false });
-  formErrors$ = this.#formErrors$.asObservable();
+  formErrors = signal({
+    email: false,
+    password: false
+  });
 
   onSubmit() {
     const { email, password } = this.loginForm.getRawValue();
 
-    this.#formErrors$.next({ email: !email, password: !password });
+    this.formErrors.update((state) => ({
+      ...state,
+      email: !email,
+      password: !password
+    }));
 
     if (email && password) {
-      this.#formErrors$.next({ email: false, password: false });
       this.formSubmit.emit({ email, password });
     }
   }

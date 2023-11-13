@@ -1,24 +1,24 @@
-import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { BehaviorSubject, take } from 'rxjs';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NavbarComponent } from '@layout/ui/navbar/navbar.component';
 import { SidebarComponent } from '@layout/ui/sidebar/sidebar.component';
-import { AppRoute } from '@shared/types/routes';
 import { Routes } from '@shared/consts/routes.const';
 import { AuthService } from '@shared/data-access/auth.service';
-import { TaskCreateDialogComponent } from '@shared/ui/task-create-dialog/task-create-dialog.component';
+import { ProfileService } from '@shared/data-access/profile.service';
 import { TagService } from '@shared/data-access/tag.service';
 import { TaskService } from '@shared/data-access/task.service';
-import { ProfileService } from '@shared/data-access/profile.service';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AppRoute } from '@shared/types/routes';
+import { TaskCreateDialogComponent } from '@shared/ui/task-create-dialog/task-create-dialog.component';
+import { BehaviorSubject, take } from 'rxjs';
 
 @Component({
   selector: 'app-layout',
@@ -51,16 +51,16 @@ export class LayoutComponent implements OnInit {
   private location = inject(Location);
   private router = inject(Router);
 
-  currentLocation$ = new BehaviorSubject<AppRoute>(Routes.TASKS);
+  currentRoute = signal<AppRoute>(Routes.TASKS);
 
   ngOnInit(): void {
     this.setCurrentLocation();
   }
 
   private setCurrentLocation() {
-    const currentLocation = this.location.path().substring(1);
-    if (this.isValidLocation(currentLocation)) {
-      this.currentLocation$.next(currentLocation);
+    const currentRoute = this.location.path().substring(1);
+    if (this.isValidLocation(currentRoute)) {
+      this.currentRoute.update(() => currentRoute);
     }
   }
 

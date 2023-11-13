@@ -42,7 +42,7 @@ describe('NavbarComponent', () => {
 
   describe('input: location', () => {
     it("should display 'Tasks' as current location", () => {
-      component.location = 'Tasks';
+      component.currentRoute = 'Tasks';
 
       fixture.detectChanges();
 
