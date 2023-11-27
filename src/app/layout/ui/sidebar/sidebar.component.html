@@ -65,6 +65,17 @@
       </button>
 
       <button
+        data-testid="navigation-tasks-link"
+        class="navigation-button"
+        [ngClass]="{ active: currentRoute === 'notes' }"
+        (click)="selectLocation('notes')"
+        mat-button
+      >
+        <mat-icon data-testid="navigation-tasks-link-icon">description</mat-icon>
+        Notes
+      </button>
+
+      <button
         disabled
         data-testid="navigation-reminders-link"
         class="navigation-button"

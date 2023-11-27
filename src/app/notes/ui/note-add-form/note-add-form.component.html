@@ -1,0 +1,45 @@
+<mat-card class="note-add-container">
+  <form
+    class="note-add-form"
+    [formGroup]="createNoteForm"
+  >
+    @if (displayEditor()) {
+      <input
+        class="input-text input-title"
+        type="text"
+        placeholder="Title"
+      />
+
+      <textarea
+        cdkTextareaAutosize
+        class="input-text"
+        type="text"
+        placeholder="Take a note..."
+      ></textarea>
+
+      <div class="form-actions">
+        <button
+          mat-raised-button
+          type="submit"
+          color="primary"
+        >
+          Save
+        </button>
+
+        <button
+          mat-raised-button
+          (click)="showEditor(false)"
+        >
+          Close
+        </button>
+      </div>
+    } @else {
+      <input
+        class="input-text"
+        type="text"
+        (focus)="showEditor(true)"
+        placeholder="Take a note..."
+      />
+    }
+  </form>
+</mat-card>

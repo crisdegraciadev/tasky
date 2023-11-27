@@ -1,0 +1,5 @@
+<div class="note-gallery">
+  @for (note of notes; track note; let idx = $index) {
+    <app-note-card [note]="note" />
+  }
+</div>

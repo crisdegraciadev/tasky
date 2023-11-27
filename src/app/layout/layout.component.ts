@@ -18,7 +18,7 @@ import { TagService } from '@shared/data-access/tag.service';
 import { TaskService } from '@shared/data-access/task.service';
 import { AppRoute } from '@shared/types/routes';
 import { TaskCreateDialogComponent } from '@shared/ui/task-create-dialog/task-create-dialog.component';
-import { BehaviorSubject, take } from 'rxjs';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-layout',

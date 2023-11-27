@@ -34,9 +34,9 @@ export class SidebarComponent {
     this.taskCreation.emit();
   }
 
-  selectLocation(location: AppRoute) {
-    this.locationSelected.emit(location);
-    this.currentRoute = location;
+  selectLocation(route: AppRoute) {
+    this.locationSelected.emit(route);
+    this.currentRoute = route;
   }
 
   handleLogout() {

@@ -1,0 +1,18 @@
+:host {
+  overflow-y: auto;
+}
+
+.notes-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .notes-add-form {
+    width: 50%;
+  }
+
+  .note-galery {
+    height: fit-content;
+    margin-bottom: 1rem;
+  }
+}

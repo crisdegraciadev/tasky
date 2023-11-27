@@ -1,13 +1,15 @@
-<div class="page-container">
-  @if (!taskService.loaded()) {
-    <div class="loading">
-      <mat-spinner />
-    </div>
-  } @else {
-    <app-todo-board
-      class="todo-board"
-      [board]="taskService.board()"
-      (boardUpdate)="updateBoard($event)"
-    />
-  }
-</div>
+@if (!taskService.loaded()) {
+  <div
+    data-testid="loading-board"
+    class="loading"
+  >
+    <mat-spinner />
+  </div>
+} @else {
+  <app-todo-board
+    data-testid="todo-board"
+    class="todo-board"
+    [board]="taskService.board()"
+    (boardUpdate)="updateBoard($event)"
+  />
+}

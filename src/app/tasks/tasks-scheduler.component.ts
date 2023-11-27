@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
@@ -14,8 +14,7 @@ import { TaskService } from '@shared/data-access/task.service';
   standalone: true,
   imports: [CommonModule, MatCardModule, TodoBoardComponent, MatTabsModule, MatProgressSpinnerModule],
   templateUrl: './tasks-scheduler.component.html',
-  styleUrls: ['./tasks-scheduler.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./tasks-scheduler.component.scss']
 })
 export class TasksSchedulerComponent {
   taskService = inject(TaskService);

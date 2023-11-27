@@ -1,16 +1,12 @@
 :host {
-  height: 100%;
+  height: calc(100% - 2rem);
+  margin: 1rem;
   overflow-y: auto;
 
-  .page-container {
-    height: calc(100% - 2rem);
-    margin: 1rem;
-
-    .loading {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  .loading {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

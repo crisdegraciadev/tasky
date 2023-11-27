@@ -9,6 +9,11 @@ export const APP_ROUTES: Route[] = [
     loadChildren: () => import('./tasks/tasks-scheduler.routes').then((mod) => mod.TASKS_ROUTES)
   },
   {
+    path: Routes.NOTES,
+    canActivate: [isAuthenticatedGuard()],
+    loadChildren: () => import('./notes/notes.routes').then((mod) => mod.NOTES_ROUTES)
+  },
+  {
     path: Routes.SETTINGS,
     canActivate: [isAuthenticatedGuard()],
     loadChildren: () => import('./settings/settings.routes').then((mod) => mod.SETTINGS_ROUTES)
